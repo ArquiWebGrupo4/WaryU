@@ -36,13 +36,13 @@ public class Tipo_IncidenteController {
         Tipo_Incidente d = m.map(dto, Tipo_Incidente.class);
         nTI.insert(d);
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body("Dispositivo registrado correctamente.");
+                .body("Tipo de incidente registrado correctamente.");
     }
     @DeleteMapping("/{id}")
     public ResponseEntity<String> delete(@PathVariable("id") Integer id) {
         Tipo_Incidente np = nTI.listId(id);
         if(np == null){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No existe registro de incidentes con ID: "+ id);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No existe registro de tipos de incidentes con ID: "+ id);
         }
         nTI.delete(id);
         return ResponseEntity.ok("Registro con ID " + id + "eliminado");
