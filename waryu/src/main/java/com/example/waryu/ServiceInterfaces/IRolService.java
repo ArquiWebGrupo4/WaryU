@@ -1,7 +1,6 @@
 package com.example.waryu.ServiceInterfaces;
 
 import com.example.waryu.Entities.Rol;
-import com.example.waryu.Entities.Usuario;
 
 import java.util.List;
 
