@@ -1,7 +1,17 @@
 package com.example.waryu.Dtos;
 
-import java.time.LocalDate;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
+import java.time.LocalDate;
+@JsonPropertyOrder({
+        "id_Usuario",
+        "email",
+        "nombre",
+        "mensaje",
+        "fecha_Registro",
+        "contacto_Emergencia",
+        "contrasena_hash"
+})
 public class UsuarioDTO {
     private int ID_Usuario;
     private String Nombre;
@@ -10,7 +20,6 @@ public class UsuarioDTO {
     private LocalDate Fecha_Registro;
     private String Contacto_Emergencia;
     private String Mensaje;
-
 
     public int getID_Usuario() {
         return ID_Usuario;

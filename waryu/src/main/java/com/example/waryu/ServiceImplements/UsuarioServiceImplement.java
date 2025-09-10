@@ -30,6 +30,6 @@ public class UsuarioServiceImplement implements IUsuarioService {
 
     @Override
     public Usuario findID(int id) {
-        return  uR.findById(id).get();
+        return uR.findById(id).orElse(null);
     }
 }
