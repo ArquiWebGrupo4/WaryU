@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("Tipo_Notificacion")
+@RequestMapping("/Tipo_Notificacion")
 public class Tipo_NotificacionController {
     @Autowired
     private ITipo_NotificacionService tpN;
