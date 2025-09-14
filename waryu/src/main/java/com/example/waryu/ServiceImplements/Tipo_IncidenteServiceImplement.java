@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class Tipo_IncidenteImpement implements ITipo_IncidenteService {
+public class Tipo_IncidenteServiceImplement implements ITipo_IncidenteService {
     @Autowired
     private ITipo_IncidenteRepository nTI;
 

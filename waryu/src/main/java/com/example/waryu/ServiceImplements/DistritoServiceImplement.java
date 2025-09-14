@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 @Service
-public class IDistritoServiceImplement implements IDistritoService {
+public class DistritoServiceImplement implements IDistritoService {
     @Autowired
     private IDistritoRepository dR;
     @Override

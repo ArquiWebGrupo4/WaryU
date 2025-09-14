@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class INivel_PeligroServiceImplement implements INivel_PeligroService {
+public class Nivel_PeligroServiceImplement implements INivel_PeligroService {
     @Autowired
     private INivel_PeligroRepository nPR;
 

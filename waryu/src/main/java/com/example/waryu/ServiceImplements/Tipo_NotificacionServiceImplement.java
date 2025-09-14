@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 @Service
-public class ITipo_NotificacionImplement implements ITipo_NotificacionService {
+public class Tipo_NotificacionServiceImplement implements ITipo_NotificacionService {
     @Autowired
     private ITipo_NotificacionRepository nTN;
 
