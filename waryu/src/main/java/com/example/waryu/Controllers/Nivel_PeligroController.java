@@ -1,9 +1,7 @@
 package com.example.waryu.Controllers;
 
 import com.example.waryu.Dtos.Nivel_PeligroDTO;
-import com.example.waryu.Dtos.RolDTO;
 import com.example.waryu.Entities.Nivel_Peligro;
-import com.example.waryu.Entities.Rol;
 import com.example.waryu.ServiceInterfaces.INivel_PeligroService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
