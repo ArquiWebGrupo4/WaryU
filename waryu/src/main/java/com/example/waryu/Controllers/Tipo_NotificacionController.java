@@ -26,7 +26,7 @@ public class Tipo_NotificacionController {
 
         if (list.isEmpty()) {
             return ResponseEntity.status(HttpStatus.OK)
-                    .body("No existen dispositivos registrados.");
+                    .body("No existen notificaciones registradas.");
         }
         return ResponseEntity.ok(list);
     }
@@ -36,15 +36,15 @@ public class Tipo_NotificacionController {
         Tipo_Notificacion d = m.map(dto, Tipo_Notificacion.class);
         tpN.insert(d);
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body("Tipo de incidente registrado correctamente.");
+                .body("Tipo de notificacion registrado correctamente.");
     }
     @DeleteMapping("/{id}")
     public ResponseEntity<String> delete(@PathVariable("id") Integer id) {
         Tipo_Notificacion np = tpN.listId(id);
         if(np == null){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No existe registro de tipos de incidentes con ID: "+ id);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No existe registro de tipos de notificacion con ID: "+ id);
         }
         tpN.delete(id);
-        return ResponseEntity.ok("Registro con ID " + id + " eliminado");
+        return ResponseEntity.ok("Tipo de notificacion con ID " + id + " eliminado");
     }
 }

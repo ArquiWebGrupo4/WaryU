@@ -30,7 +30,7 @@ public class DistritoController {
 
         if (lista.isEmpty()) {
             return ResponseEntity.status(HttpStatus.OK)
-                    .body("No existen niveles de peligro registrados.");
+                    .body("No existen distritos registrados.");
         }
         return ResponseEntity.ok(lista);
     }
@@ -40,15 +40,15 @@ public class DistritoController {
         Distrito d = m.map(dto, Distrito.class);
         dS.insert(d);
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body("Nivel de peligro registrado correctamente.");
+                .body("Distrito registrado correctamente.");
     }
     @DeleteMapping("/{id}")
     public ResponseEntity<String> delete(@PathVariable("id") Integer id) {
         Distrito np = dS.listId(id);
         if (np == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No existe un registro con el ID: " + id);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No existe un distrito con el ID: " + id);
         }
         dS.delete(id);
-        return ResponseEntity.ok("Registro con ID " + id + " eliminado");
+        return ResponseEntity.ok("Distrito con ID " + id + " eliminado");
     }
 }
