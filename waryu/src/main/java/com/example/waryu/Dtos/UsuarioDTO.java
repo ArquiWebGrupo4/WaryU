@@ -1,35 +1,25 @@
 package com.example.waryu.Dtos;
 
-import com.example.waryu.Entities.Rol;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import jakarta.persistence.*;
 
 import java.time.LocalDate;
-
 @JsonPropertyOrder({
         "id_Usuario",
-        "nombre_Usuario",
-        "nombre_Completo",
         "email",
-        "contrasena_hash",
-        "fecha_Registro",
-        "telefono",
-        "telefono_Panico",
+        "nombre",
         "mensaje",
-        "rol"
+        "fecha_Registro",
+        "contacto_Emergencia",
+        "contrasena_hash"
 })
-
 public class UsuarioDTO {
     private int ID_Usuario;
-    private String Nombre_Usuario;
-    private String Nombre_Completo;
+    private String Nombre;
     private String Email;
     private String Contrasena_hash;
     private LocalDate Fecha_Registro;
-    private String Telefono;
-    private String Telefono_Panico;
+    private String Contacto_Emergencia;
     private String Mensaje;
-    private Rol rol;
 
     public int getID_Usuario() {
         return ID_Usuario;
@@ -39,20 +29,12 @@ public class UsuarioDTO {
         this.ID_Usuario = ID_Usuario;
     }
 
-    public String getNombre_Usuario() {
-        return Nombre_Usuario;
+    public String getNombre() {
+        return Nombre;
     }
 
-    public void setNombre_Usuario(String nombre_Usuario) {
-        Nombre_Usuario = nombre_Usuario;
-    }
-
-    public String getNombre_Completo() {
-        return Nombre_Completo;
-    }
-
-    public void setNombre_Completo(String nombre_Completo) {
-        Nombre_Completo = nombre_Completo;
+    public void setNombre(String nombre) {
+        Nombre = nombre;
     }
 
     public String getEmail() {
@@ -79,20 +61,12 @@ public class UsuarioDTO {
         Fecha_Registro = fecha_Registro;
     }
 
-    public String getTelefono() {
-        return Telefono;
+    public String getContacto_Emergencia() {
+        return Contacto_Emergencia;
     }
 
-    public void setTelefono(String telefono) {
-        Telefono = telefono;
-    }
-
-    public String getTelefono_Panico() {
-        return Telefono_Panico;
-    }
-
-    public void setTelefono_Panico(String telefono_Panico) {
-        Telefono_Panico = telefono_Panico;
+    public void setContacto_Emergencia(String contacto_Emergencia) {
+        Contacto_Emergencia = contacto_Emergencia;
     }
 
     public String getMensaje() {
@@ -101,13 +75,5 @@ public class UsuarioDTO {
 
     public void setMensaje(String mensaje) {
         Mensaje = mensaje;
-    }
-
-    public Rol getRol() {
-        return rol;
-    }
-
-    public void setRol(Rol rol) {
-        this.rol = rol;
     }
 }

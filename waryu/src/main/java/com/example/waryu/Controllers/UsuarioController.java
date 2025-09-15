@@ -2,6 +2,7 @@ package com.example.waryu.Controllers;
 
 import com.example.waryu.Dtos.UsuarioDTO;
 import com.example.waryu.Entities.Usuario;
+import com.example.waryu.ServiceImplements.UsuarioServiceImplement;
 import com.example.waryu.ServiceInterfaces.IUsuarioService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,13 +43,13 @@ public class UsuarioController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> eliminar(@PathVariable("id") Integer id) {
+    public ResponseEntity<String> eliminar(@PathVariable("id") int id) {
         Usuario usuario = uS.findID(id);
         if (usuario == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body("No existe un registro con el ID: " + id);
+                    .body("No existe un usuario con el ID: " + id);
         }
         uS.delete(id);
-        return ResponseEntity.ok("Registro con ID " + id + " eliminado correctamente.");
+        return ResponseEntity.ok("Usuario con ID " + id + " eliminado correctamente.");
     }
 }
