@@ -1,5 +1,6 @@
 package com.example.waryu.Dtos;
 
+import com.example.waryu.Entities.Distrito;
 import com.example.waryu.Entities.Nivel_Peligro;
 import com.example.waryu.Entities.Tipo_Incidente;
 import com.example.waryu.Entities.Usuario;
@@ -7,35 +8,40 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @JsonPropertyOrder({
-        "ID_Incidente",
+        "id_Incidente",
         "usuario",
         "nivelPeligro",
-        "tipo_Incidente",
-        "Imagen_URL",
-        "Descripcion",
-        "Fecha",
-        "Lat",
-        "Lon"
+        "tipoIncidente",
+        "distrito",
+        "imagen_URL",
+        "descripcion",
+        "fecha_creacion",
+        "fecha_modificacion",
+        "lat",
+        "lon"
 })
 public class IncidenteDTO {
     private int ID_Incidente;
     private Usuario usuario;
     private Nivel_Peligro nivelPeligro;
     private Tipo_Incidente tipoIncidente;
+    private Distrito distrito;
     private String Imagen_URL;
     private String Descripcion;
-    private LocalDate Fecha;
+    private LocalDateTime Fecha_Creacion;
+    private LocalDateTime Fecha_Modificacion;
     private BigDecimal Lat;
     private BigDecimal Lon;
 
-    public BigDecimal getLon() {
-        return Lon;
+    public int getID_Incidente() {
+        return ID_Incidente;
     }
 
-    public void setLon(BigDecimal lon) {
-        Lon = lon;
+    public void setID_Incidente(int ID_Incidente) {
+        this.ID_Incidente = ID_Incidente;
     }
 
     public Usuario getUsuario() {
@@ -44,14 +50,6 @@ public class IncidenteDTO {
 
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
-    }
-
-    public int getID_Incidente() {
-        return ID_Incidente;
-    }
-
-    public void setID_Incidente(int ID_Incidente) {
-        this.ID_Incidente = ID_Incidente;
     }
 
     public Nivel_Peligro getNivelPeligro() {
@@ -70,6 +68,14 @@ public class IncidenteDTO {
         this.tipoIncidente = tipoIncidente;
     }
 
+    public Distrito getDistrito() {
+        return distrito;
+    }
+
+    public void setDistrito(Distrito distrito) {
+        this.distrito = distrito;
+    }
+
     public String getImagen_URL() {
         return Imagen_URL;
     }
@@ -86,12 +92,20 @@ public class IncidenteDTO {
         Descripcion = descripcion;
     }
 
-    public LocalDate getFecha() {
-        return Fecha;
+    public LocalDateTime getFecha_Creacion() {
+        return Fecha_Creacion;
     }
 
-    public void setFecha(LocalDate fecha) {
-        Fecha = fecha;
+    public void setFecha_Creacion(LocalDateTime fecha_Creacion) {
+        Fecha_Creacion = fecha_Creacion;
+    }
+
+    public LocalDateTime getFecha_Modificacion() {
+        return Fecha_Modificacion;
+    }
+
+    public void setFecha_Modificacion(LocalDateTime fecha_Modificacion) {
+        Fecha_Modificacion = fecha_Modificacion;
     }
 
     public BigDecimal getLat() {
@@ -100,5 +114,13 @@ public class IncidenteDTO {
 
     public void setLat(BigDecimal lat) {
         Lat = lat;
+    }
+
+    public BigDecimal getLon() {
+        return Lon;
+    }
+
+    public void setLon(BigDecimal lon) {
+        Lon = lon;
     }
 }

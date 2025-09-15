@@ -38,7 +38,7 @@ public class RolController {
         Rol d = m.map(dto, Rol.class);
         rS.insert(d);
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body("Dispositivo registrado correctamente.");
+                .body("Rol registrado correctamente.");
     }
 
     @DeleteMapping("/{id}")

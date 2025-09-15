@@ -29,7 +29,7 @@ public class IncidenteController {
 
         if (lista.isEmpty()) {
             return ResponseEntity.status(HttpStatus.OK)
-                    .body("No existen Incidentes registrados.");
+                    .body("No existen incidentes registrados.");
         }
         return ResponseEntity.ok(lista);
     }
@@ -40,7 +40,7 @@ public class IncidenteController {
         Incidente d = m.map(dto, Incidente.class);
         iS.insert(d);
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body("Dispositivo registrado correctamente.");
+                .body("Incidente registrado correctamente.");
     }
 
     @DeleteMapping("/{id}")
@@ -48,9 +48,9 @@ public class IncidenteController {
         Incidente incidente = iS.findID(id);
         if (incidente == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body("No existe un registro con el ID: " + id);
+                    .body("No existe un incidente con el ID: " + id);
         }
         iS.delete(id);
-        return ResponseEntity.ok("Registro con ID " + id + " eliminado correctamente.");
+        return ResponseEntity.ok("Incidente con ID " + id + " eliminado correctamente.");
     }
 }
