@@ -1,0 +1,56 @@
+package com.example.waryu.Controllers;
+
+import com.example.waryu.Dtos.NotificacionDTO;
+import com.example.waryu.Dtos.UsuarioDTO;
+import com.example.waryu.Entities.Notificacion;
+import com.example.waryu.Entities.Usuario;
+import com.example.waryu.ServiceInterfaces.INotificacionService;
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+@RestController
+@RequestMapping("/Notificacion")
+public class NotificacionController {
+    @Autowired
+    private INotificacionService nS;
+
+    @GetMapping
+    public ResponseEntity<?> list() {
+        List<NotificacionDTO> lista = nS.List().stream().map(x -> {
+            ModelMapper m = new ModelMapper();
+            return m.map(x, NotificacionDTO.class);
+        }).collect(Collectors.toList());
+
+        if (lista.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.OK)
+                    .body("No existen usuarios registrados.");
+        }
+        return ResponseEntity.ok(lista);
+    }
+
+    @PostMapping
+    public ResponseEntity<String> insert(@RequestBody NotificacionDTO dto) {
+        ModelMapper m = new ModelMapper();
+        Notificacion n = m.map(dto, Notificacion.class);
+        nS.Insert(n);
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body("Notificacion registrada correctamente.");
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> delete(@PathVariable("id") Integer id) {
+        Notificacion notificacion = nS.ListarId(id);
+        if (notificacion == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("No existe un registro con el ID: " + id);
+        }
+        nS.Delete(id);
+        return ResponseEntity.ok("Notificacion con ID " + id + " eliminado correctamente.");
+    }
+}
