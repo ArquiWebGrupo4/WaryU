@@ -2,6 +2,8 @@ package com.example.waryu.Entities;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name="Tipo_Incidente")
 public class Tipo_Incidente {

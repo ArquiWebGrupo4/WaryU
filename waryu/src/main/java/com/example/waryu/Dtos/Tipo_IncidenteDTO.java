@@ -1,11 +1,5 @@
 package com.example.waryu.Dtos;
 
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-
-@JsonPropertyOrder({
-        "id_Tipo_Incidente",
-        "tipo_Tipo_Incidente"
-})
 public class Tipo_IncidenteDTO {
     private int Id_Tipo_Incidente;
     private String Tipo_Tipo_Incidente;
