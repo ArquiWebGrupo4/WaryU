@@ -26,7 +26,7 @@ public class Tipo_IncidenteController {
 
         if (list.isEmpty()) {
             return ResponseEntity.status(HttpStatus.OK)
-                    .body("No existen dispositivos registrados.");
+                    .body("No existen tipos de incidentes registrados.");
         }
         return ResponseEntity.ok(list);
     }

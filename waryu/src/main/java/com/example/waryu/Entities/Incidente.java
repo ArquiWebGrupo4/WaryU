@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Table (name = "Incidente")
@@ -21,12 +22,17 @@ public class Incidente {
     @ManyToOne
     @JoinColumn(name = "ID_Tipo")
     private Tipo_Incidente tipoIncidente;
+    @ManyToOne
+    @JoinColumn(name = "ID_Distrito")
+    private Distrito distrito;
     @Column (name = "Imagen_URL",nullable = false, length = 250)
     private String Imagen_URL;
     @Column (name = "Descripcion", nullable = false, length = 500)
     private String Descripcion;
-    @Column (name = "Fecha",  nullable = false)
-    private LocalDate Fecha;
+    @Column (name = "Fecha_Creacion",  nullable = false)
+    private LocalDateTime Fecha_Creacion;
+    @Column (name = "Fecha_Modificacion",  nullable = false)
+    private LocalDateTime Fecha_Modificacion;
     @Column (name = "Lat",  nullable = false,precision = 9, scale = 6)
     private BigDecimal Lat;
     @Column (name = "Lon",  nullable = false,precision = 9, scale = 6)
@@ -34,16 +40,18 @@ public class Incidente {
 
     public Incidente() {}
 
-    public Incidente(int ID_Incidente, Usuario usuario, Nivel_Peligro nivelPeligro, Tipo_Incidente tipoIncidente, String imagen_URL, String descripcion, BigDecimal lat, BigDecimal lon, LocalDate fecha) {
+    public Incidente(int ID_Incidente, Usuario usuario, Nivel_Peligro nivelPeligro, Tipo_Incidente tipoIncidente, Distrito distrito, String imagen_URL, String descripcion, LocalDateTime fecha_Creacion, LocalDateTime fecha_Modificacion, BigDecimal lat, BigDecimal lon) {
         this.ID_Incidente = ID_Incidente;
         this.usuario = usuario;
         this.nivelPeligro = nivelPeligro;
         this.tipoIncidente = tipoIncidente;
+        this.distrito = distrito;
         Imagen_URL = imagen_URL;
         Descripcion = descripcion;
+        Fecha_Creacion = fecha_Creacion;
+        Fecha_Modificacion = fecha_Modificacion;
         Lat = lat;
         Lon = lon;
-        Fecha = fecha;
     }
 
     public int getID_Incidente() {
@@ -78,6 +86,14 @@ public class Incidente {
         this.tipoIncidente = tipoIncidente;
     }
 
+    public Distrito getDistrito() {
+        return distrito;
+    }
+
+    public void setDistrito(Distrito distrito) {
+        this.distrito = distrito;
+    }
+
     public String getImagen_URL() {
         return Imagen_URL;
     }
@@ -94,12 +110,20 @@ public class Incidente {
         Descripcion = descripcion;
     }
 
-    public LocalDate getFecha() {
-        return Fecha;
+    public LocalDateTime getFecha_Creacion() {
+        return Fecha_Creacion;
     }
 
-    public void setFecha(LocalDate fecha) {
-        Fecha = fecha;
+    public void setFecha_Creacion(LocalDateTime fecha_Creacion) {
+        Fecha_Creacion = fecha_Creacion;
+    }
+
+    public LocalDateTime getFecha_Modificacion() {
+        return Fecha_Modificacion;
+    }
+
+    public void setFecha_Modificacion(LocalDateTime fecha_Modificacion) {
+        Fecha_Modificacion = fecha_Modificacion;
     }
 
     public BigDecimal getLat() {

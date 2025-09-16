@@ -26,7 +26,7 @@ public class Tipo_NotificacionController {
 
         if (list.isEmpty()) {
             return ResponseEntity.status(HttpStatus.OK)
-                    .body("No existen notificaciones registradas.");
+                    .body("No existen tipos de notificaciones registrados.");
         }
         return ResponseEntity.ok(list);
     }
