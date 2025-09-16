@@ -3,7 +3,7 @@ package com.example.waryu.Entities;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name="/Distrito")
+@Table(name="Distrito")
 public class Distrito {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
