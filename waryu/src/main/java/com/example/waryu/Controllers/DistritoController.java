@@ -30,7 +30,7 @@ public class DistritoController {
 
         if (lista.isEmpty()) {
             return ResponseEntity.status(HttpStatus.OK)
-                    .body("No existen distrito registrados");
+                    .body("No existen distritos registrados.");
         }
         return ResponseEntity.ok(lista);
     }
@@ -40,7 +40,7 @@ public class DistritoController {
         Distrito d = m.map(dto, Distrito.class);
         dS.insert(d);
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body("Distrito ingresado corractamente");
+                .body("Distrito registrado correctamente.");
     }
     @DeleteMapping("/{id}")
     public ResponseEntity<String> delete(@PathVariable("id") Integer id) {
