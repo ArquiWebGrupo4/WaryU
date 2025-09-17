@@ -5,16 +5,15 @@ import com.example.waryu.Entities.Usuario;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonPropertyOrder({
-        "ID_DistritoFavorito",
-        "ID_Usuario",
-        "ID_Distrito",
-        "Estado"
+        "id_DistritoFavorito",
+        "usuario",
+        "distrito",
+        "estado"
 })
-
-public class DistritoFavoritoDTO {
+public class DistritoFavoritoSecDTO {
     private int ID_DistritoFavorito;
     private Boolean Estado;
-    private Usuario usuario;
+    private UsuarioSecDTO usuario;
     private Distrito distrito;
 
     public int getID_DistritoFavorito() {
@@ -33,11 +32,11 @@ public class DistritoFavoritoDTO {
         Estado = estado;
     }
 
-    public Usuario getUsuario() {
+    public UsuarioSecDTO getUsuario() {
         return usuario;
     }
 
-    public void setUsuario(Usuario usuario) {
+    public void setUsuario(UsuarioSecDTO usuario) {
         this.usuario = usuario;
     }
 

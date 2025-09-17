@@ -1,34 +1,22 @@
-package com.example.waryu.Entities;
+package com.example.waryu.Dtos;
 
-import jakarta.persistence.*;
+import com.example.waryu.Entities.Usuario;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import java.time.LocalDateTime;
-
-@Entity
-@Table(name = "Busqueda")
-public class Busqueda {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+@JsonPropertyOrder({
+        "id_Busqueda",
+        "usuario",
+        "direccion",
+        "palabra_Clave",
+        "fecha"
+})
+public class BusquedaSecDTO {
     private int ID_Busqueda;
-    @ManyToOne
-    @JoinColumn(name = "ID_Usuario")
-    private Usuario usuario;
-    @Column (name = "Direccion", nullable = false, length = 100)
+    private UsuarioSecDTO usuario;
     private String Direccion;
-    @Column (name = "Palabra_Clave", nullable = false, length = 30)
     private String Palabra_Clave;
-    @Column(name = "Fecha", nullable = false)
     private LocalDateTime Fecha;
-
-    public Busqueda() {}
-
-    public Busqueda(int ID_Busqueda, Usuario usuario, String direccion, String palabra_Clave, LocalDateTime fecha) {
-        this.ID_Busqueda = ID_Busqueda;
-        this.usuario = usuario;
-        Direccion = direccion;
-        Palabra_Clave = palabra_Clave;
-        Fecha = fecha;
-    }
 
     public int getID_Busqueda() {
         return ID_Busqueda;
@@ -38,11 +26,11 @@ public class Busqueda {
         this.ID_Busqueda = ID_Busqueda;
     }
 
-    public Usuario getUsuario() {
+    public UsuarioSecDTO getUsuario() {
         return usuario;
     }
 
-    public void setUsuario(Usuario usuario) {
+    public void setUsuario(UsuarioSecDTO usuario) {
         this.usuario = usuario;
     }
 

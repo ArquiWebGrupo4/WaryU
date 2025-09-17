@@ -8,23 +8,19 @@ public class DistritoFavorito {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int ID_DistritoFavorito;
-    @Column(name = "Estado", nullable=false, length = 20)
-    private String Estado;
+
     @ManyToOne
     @JoinColumn(name = "ID_Usuario", nullable=false)
     private Usuario usuario;
+
     @ManyToOne
-    @JoinColumn
+    @JoinColumn(name = "ID_Distrito", nullable=false)
     private Distrito distrito;
 
-    public DistritoFavorito() {
-    }
+    @Column(name = "Estado", nullable=false)
+    private Boolean Estado;
 
-    public DistritoFavorito(int ID_DistritoFavorito, String estado, Usuario usuario, Distrito distrito) {
-        this.ID_DistritoFavorito = ID_DistritoFavorito;
-        Estado = estado;
-        this.usuario = usuario;
-        this.distrito = distrito;
+    public DistritoFavorito() {
     }
 
     public int getID_DistritoFavorito() {
@@ -33,14 +29,6 @@ public class DistritoFavorito {
 
     public void setID_DistritoFavorito(int ID_DistritoFavorito) {
         this.ID_DistritoFavorito = ID_DistritoFavorito;
-    }
-
-    public String getEstado() {
-        return Estado;
-    }
-
-    public void setEstado(String estado) {
-        Estado = estado;
     }
 
     public Usuario getUsuario() {
@@ -57,5 +45,13 @@ public class DistritoFavorito {
 
     public void setDistrito(Distrito distrito) {
         this.distrito = distrito;
+    }
+
+    public Boolean getEstado() {
+        return Estado;
+    }
+
+    public void setEstado(Boolean estado) {
+        Estado = estado;
     }
 }

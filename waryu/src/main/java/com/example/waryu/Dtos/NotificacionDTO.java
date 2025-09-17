@@ -2,13 +2,18 @@ package com.example.waryu.Dtos;
 
 import com.example.waryu.Entities.Tipo_Notificacion;
 import com.example.waryu.Entities.Usuario;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import java.time.LocalDate;
-
+@JsonPropertyOrder({
+        "id_Notificacion",
+        "tipo_Notificacion",
+        "mensaje",
+        "fecha"
+})
 public class NotificacionDTO {
     private int ID_Notificacion;
     private Tipo_Notificacion tipo_Notificacion;
-    private Usuario usuario;
     private String mensaje;
     private LocalDate fecha;
 
@@ -26,14 +31,6 @@ public class NotificacionDTO {
 
     public void setTipo_Notificacion(Tipo_Notificacion tipo_Notificacion) {
         this.tipo_Notificacion = tipo_Notificacion;
-    }
-
-    public Usuario getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
     }
 
     public String getMensaje() {

@@ -9,32 +9,41 @@ public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int ID_Usuario;
-    @Column(name = "Nombre", nullable = false, length = 20)
-    private String Nombre;
+    @Column(name = "Nombre_Usuario", nullable = false, length = 20)
+    private String Nombre_Usuario;
+    @Column(name = "Nombre_Completo", nullable = false, length = 150)
+    private String Nombre_Completo;
     @Column(name = "Email", nullable = false, length = 40)
     private String Email;
     @Column(name = "Contrasena_hash", nullable = false, length = 64)
     private String Contrasena_hash;
     @Column(name = "Fecha_Registro", nullable = false)
     private LocalDate Fecha_Registro;
-    @Column(name = "Contacto_Emergencia", nullable = false, length = 15)
-    private String Contacto_Emergencia;
+    @Column(name = "Telefono", nullable = false, length = 15)
+    private String Telefono;
+    @Column(name = "Telefono_Panico", nullable = false, length = 15)
+    private String Telefono_Panico;
     @Column(name = "Mensaje", nullable = false, length = 200)
     private String Mensaje;
 
+    @ManyToOne
+    @JoinColumn(name = "ID_Rol")
+    private Rol rol;
+
     public Usuario() {}
 
-    public Usuario(int ID_Usuario, String nombre, String email, String contrasena_hash, LocalDate fecha_Registro, String contacto_Emergencia, String mensaje) {
+    public Usuario(int ID_Usuario, String nombre_Usuario, String nombre_Completo, String email, String contrasena_hash, LocalDate fecha_Registro, String telefono, String telefono_Panico, String mensaje, Rol rol) {
         this.ID_Usuario = ID_Usuario;
-        Nombre = nombre;
+        Nombre_Usuario = nombre_Usuario;
+        Nombre_Completo = nombre_Completo;
         Email = email;
         Contrasena_hash = contrasena_hash;
         Fecha_Registro = fecha_Registro;
-        Contacto_Emergencia = contacto_Emergencia;
+        Telefono = telefono;
+        Telefono_Panico = telefono_Panico;
         Mensaje = mensaje;
+        this.rol = rol;
     }
-
-
 
     public int getID_Usuario() {
         return ID_Usuario;
@@ -44,12 +53,20 @@ public class Usuario {
         this.ID_Usuario = ID_Usuario;
     }
 
-    public String getNombre() {
-        return Nombre;
+    public String getNombre_Usuario() {
+        return Nombre_Usuario;
     }
 
-    public void setNombre(String nombre) {
-        Nombre = nombre;
+    public void setNombre_Usuario(String nombre_Usuario) {
+        Nombre_Usuario = nombre_Usuario;
+    }
+
+    public String getNombre_Completo() {
+        return Nombre_Completo;
+    }
+
+    public void setNombre_Completo(String nombre_Completo) {
+        Nombre_Completo = nombre_Completo;
     }
 
     public String getEmail() {
@@ -76,12 +93,20 @@ public class Usuario {
         Fecha_Registro = fecha_Registro;
     }
 
-    public String getContacto_Emergencia() {
-        return Contacto_Emergencia;
+    public String getTelefono() {
+        return Telefono;
     }
 
-    public void setContacto_Emergencia(String contacto_Emergencia) {
-        Contacto_Emergencia = contacto_Emergencia;
+    public void setTelefono(String telefono) {
+        Telefono = telefono;
+    }
+
+    public String getTelefono_Panico() {
+        return Telefono_Panico;
+    }
+
+    public void setTelefono_Panico(String telefono_Panico) {
+        Telefono_Panico = telefono_Panico;
     }
 
     public String getMensaje() {
@@ -90,5 +115,13 @@ public class Usuario {
 
     public void setMensaje(String mensaje) {
         Mensaje = mensaje;
+    }
+
+    public Rol getRol() {
+        return rol;
+    }
+
+    public void setRol(Rol rol) {
+        this.rol = rol;
     }
 }

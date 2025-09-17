@@ -3,8 +3,8 @@ package com.example.waryu.Dtos;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonPropertyOrder({
-        "ID_Distrito",
-        "Nombre"
+        "id_Distrito",
+        "nombre"
 })
 public class DistritoDTO {
     private int ID_Distrito;

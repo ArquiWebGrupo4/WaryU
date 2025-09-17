@@ -6,15 +6,17 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import java.time.LocalDateTime;
 
 @JsonPropertyOrder({
-        "ID_Busqueda",
+        "id_Busqueda",
         "usuario",
-        "Descripcion",
-        "Fecha"
+        "direccion",
+        "palabra_Clave",
+        "fecha"
 })
 public class BusquedaDTO {
     private int ID_Busqueda;
     private Usuario usuario;
-    private String Descripcion;
+    private String Direccion;
+    private String Palabra_Clave;
     private LocalDateTime Fecha;
 
     public int getID_Busqueda() {
@@ -33,6 +35,14 @@ public class BusquedaDTO {
         this.usuario = usuario;
     }
 
+    public String getDireccion() {
+        return Direccion;
+    }
+
+    public void setDireccion(String direccion) {
+        Direccion = direccion;
+    }
+
     public LocalDateTime getFecha() {
         return Fecha;
     }
@@ -41,11 +51,11 @@ public class BusquedaDTO {
         Fecha = fecha;
     }
 
-    public String getDescripcion() {
-        return Descripcion;
+    public String getPalabra_Clave() {
+        return Palabra_Clave;
     }
 
-    public void setDescripcion(String descripcion) {
-        Descripcion = descripcion;
+    public void setPalabra_Clave(String palabra_Clave) {
+        Palabra_Clave = palabra_Clave;
     }
 }

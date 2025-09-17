@@ -1,6 +1,7 @@
 package com.example.waryu.Controllers;
 
 import com.example.waryu.Dtos.Reporte_IncidenteDTO;
+import com.example.waryu.Dtos.Reporte_IncidenteSecDTO;
 import com.example.waryu.Dtos.RolDTO;
 import com.example.waryu.Entities.Incidente;
 import com.example.waryu.Entities.Reporte_Incidente;
@@ -29,9 +30,9 @@ public class Reporte_IncidenteController {
     private IncidenteService iS;
     @GetMapping
     public ResponseEntity<?> listar() {
-        List<Reporte_IncidenteDTO> lista = rIS.list().stream().map(x -> {
+        List<Reporte_IncidenteSecDTO> lista = rIS.list().stream().map(x -> {
             ModelMapper m = new ModelMapper();
-            return m.map(x, Reporte_IncidenteDTO.class);
+            return m.map(x, Reporte_IncidenteSecDTO.class);
         }).collect(Collectors.toList());
 
         if (lista.isEmpty()) {

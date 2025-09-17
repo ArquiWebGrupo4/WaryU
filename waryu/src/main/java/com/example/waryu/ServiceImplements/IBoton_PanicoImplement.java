@@ -21,4 +21,14 @@ public class IBoton_PanicoImplement implements IBoton_PanicoService {
     public List<Boton_Panico> list(){
         return btn_Pan.findAll();
     }
+
+    @Override
+    public void delete(int id) {
+        btn_Pan.deleteById(id);
+    }
+
+    @Override
+    public Boton_Panico listId(int id) {
+        return  btn_Pan.findById(id).orElse(null);
+    }
 }

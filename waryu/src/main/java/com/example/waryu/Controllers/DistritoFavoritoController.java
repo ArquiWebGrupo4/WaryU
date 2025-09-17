@@ -2,6 +2,7 @@ package com.example.waryu.Controllers;
 
 import com.example.waryu.Dtos.DistritoDTO;
 import com.example.waryu.Dtos.DistritoFavoritoDTO;
+import com.example.waryu.Dtos.DistritoFavoritoSecDTO;
 import com.example.waryu.Entities.Distrito;
 import com.example.waryu.Entities.DistritoFavorito;
 import com.example.waryu.ServiceInterfaces.IDistritoFavoritoService;
@@ -21,9 +22,9 @@ public class DistritoFavoritoController {
     private IDistritoFavoritoService dfS;
     @GetMapping
     public ResponseEntity<?> listar() {
-        List<DistritoFavoritoDTO> lista = dfS.list().stream().map(x -> {
+        List<DistritoFavoritoSecDTO> lista = dfS.list().stream().map(x -> {
             ModelMapper m = new ModelMapper();
-            return m.map(x, DistritoFavoritoDTO.class);
+            return m.map(x, DistritoFavoritoSecDTO.class);
         }).collect(Collectors.toList());
 
         if (lista.isEmpty()) {

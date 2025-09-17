@@ -16,10 +16,6 @@ public class Notificacion {
     @JoinColumn(name = "Id_Tipo_Notificacion")
     private Tipo_Notificacion tipo_Notificacion;
 
-    @ManyToOne
-    @JoinColumn(name = "ID_Usuario")
-    private Usuario usuario;
-
     @Column(name= "Mensaje", nullable = false, length = 100)
     private String Mensaje;
 
@@ -28,10 +24,9 @@ public class Notificacion {
 
     public Notificacion() {}
 
-    public Notificacion(int ID_Notificacion, Tipo_Notificacion tipo_Notificacion, Usuario usuario, String mensaje, LocalDate fecha) {
+    public Notificacion(int ID_Notificacion, Tipo_Notificacion tipo_Notificacion, String mensaje, LocalDate fecha) {
         this.ID_Notificacion = ID_Notificacion;
         this.tipo_Notificacion = tipo_Notificacion;
-        this.usuario = usuario;
         Mensaje = mensaje;
         Fecha = fecha;
     }
@@ -44,12 +39,12 @@ public class Notificacion {
         this.ID_Notificacion = ID_Notificacion;
     }
 
-    public LocalDate getFecha() {
-        return Fecha;
+    public Tipo_Notificacion getTipo_Notificacion() {
+        return tipo_Notificacion;
     }
 
-    public void setFecha(LocalDate fecha) {
-        Fecha = fecha;
+    public void setTipo_Notificacion(Tipo_Notificacion tipo_Notificacion) {
+        this.tipo_Notificacion = tipo_Notificacion;
     }
 
     public String getMensaje() {
@@ -60,19 +55,11 @@ public class Notificacion {
         Mensaje = mensaje;
     }
 
-    public Usuario getUsuario() {
-        return usuario;
+    public LocalDate getFecha() {
+        return Fecha;
     }
 
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
-    }
-
-    public Tipo_Notificacion getTipo_Notificacion() {
-        return tipo_Notificacion;
-    }
-
-    public void setTipo_Notificacion(Tipo_Notificacion tipo_Notificacion) {
-        this.tipo_Notificacion = tipo_Notificacion;
+    public void setFecha(LocalDate fecha) {
+        Fecha = fecha;
     }
 }

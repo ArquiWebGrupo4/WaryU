@@ -1,9 +1,12 @@
 package com.example.waryu.Controllers;
 
 import com.example.waryu.Dtos.BusquedaDTO;
+import com.example.waryu.Dtos.BusquedaSecDTO;
 import com.example.waryu.Dtos.DistritoDTO;
+import com.example.waryu.Dtos.UsuarioSecDTO;
 import com.example.waryu.Entities.Busqueda;
 import com.example.waryu.Entities.Distrito;
+import com.example.waryu.Entities.Usuario;
 import com.example.waryu.ServiceInterfaces.BusquedaService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,11 +25,10 @@ public class BusquedaController {
 
     @GetMapping
     public ResponseEntity<?> listar() {
-        List<BusquedaDTO> lista = bS.list().stream().map(x -> {
+        List<BusquedaSecDTO> lista = bS.list().stream().map(x -> {
             ModelMapper m = new ModelMapper();
-            return m.map(x, BusquedaDTO.class);
+            return m.map(x, BusquedaSecDTO.class);
         }).collect(Collectors.toList());
-
         if (lista.isEmpty()) {
             return ResponseEntity.status(HttpStatus.OK)
                     .body("No existen busquedas registrados");

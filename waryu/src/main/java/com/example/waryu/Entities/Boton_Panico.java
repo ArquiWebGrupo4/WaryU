@@ -3,6 +3,7 @@ package com.example.waryu.Entities;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "Boton_Panico")
@@ -12,21 +13,22 @@ public class Boton_Panico {
     private int ID_Boton_Panico;
     @ManyToOne
     @JoinColumn(name = "ID_Usuario")
-    private Usuario ID_Usuario;
+    private Usuario Usuario;
     @Column(name = "Fecha_Activacion", nullable = false)
-    private LocalDate Fecha_Activacion;
+    private LocalDateTime Fecha_Activacion;
     @Column(name = "Latitud", nullable = false)
     private double Lat;
     @Column(name = "Longitud", nullable = false)
     private double Lon;
 
     public Boton_Panico() {}
-    public Boton_Panico(int ID_Boton_Panico, Usuario ID_Usuario, LocalDate fecha_Activacion, double lat, double lon) {
+
+    public Boton_Panico(int ID_Boton_Panico, Usuario Usuario, LocalDateTime fecha_Activacion, double lat, double lon) {
         this.ID_Boton_Panico = ID_Boton_Panico;
-        this.ID_Usuario = ID_Usuario;
-        this.Fecha_Activacion = fecha_Activacion;
-        this.Lat = lat;
-        this.Lon = lon;
+        this.Usuario = Usuario;
+        Fecha_Activacion = fecha_Activacion;
+        Lat = lat;
+        Lon = lon;
     }
 
     public int getID_Boton_Panico() {
@@ -37,20 +39,20 @@ public class Boton_Panico {
         this.ID_Boton_Panico = ID_Boton_Panico;
     }
 
-    public Usuario getID_Usuario() {
-        return ID_Usuario;
+    public Usuario getUsuario() {
+        return Usuario;
     }
 
-    public void setID_Usuario(Usuario ID_Usuario) {
-        this.ID_Usuario = ID_Usuario;
+    public void setUsuario(Usuario usuario) {
+        Usuario = usuario;
     }
 
-    public LocalDate getFecha_Activacion() {
+    public LocalDateTime getFecha_Activacion() {
         return Fecha_Activacion;
     }
 
-    public void setFecha_Activacion(LocalDate fecha_Activacion) {
-        this.Fecha_Activacion = fecha_Activacion;
+    public void setFecha_Activacion(LocalDateTime fecha_Activacion) {
+        Fecha_Activacion = fecha_Activacion;
     }
 
     public double getLat() {
@@ -58,7 +60,7 @@ public class Boton_Panico {
     }
 
     public void setLat(double lat) {
-        this.Lat = lat;
+        Lat = lat;
     }
 
     public double getLon() {
@@ -66,6 +68,6 @@ public class Boton_Panico {
     }
 
     public void setLon(double lon) {
-        this.Lon = lon;
+        Lon = lon;
     }
 }
