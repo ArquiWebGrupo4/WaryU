@@ -3,8 +3,10 @@ package com.example.waryu.Controllers;
 import com.example.waryu.Dtos.DistritoDTO;
 import com.example.waryu.Dtos.DistritoFavoritoDTO;
 import com.example.waryu.Dtos.DistritoFavoritoSecDTO;
+import com.example.waryu.Dtos.Tipo_NotificacionDTO;
 import com.example.waryu.Entities.Distrito;
 import com.example.waryu.Entities.DistritoFavorito;
+import com.example.waryu.Entities.Tipo_Notificacion;
 import com.example.waryu.ServiceInterfaces.IDistritoFavoritoService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +36,7 @@ public class DistritoFavoritoController {
         return ResponseEntity.ok(lista);
     }
     @PostMapping
-    public ResponseEntity<String> registrar(@RequestBody DistritoFavorito dto) {
+    public ResponseEntity<String> registrar(@RequestBody DistritoFavoritoDTO dto) {
         ModelMapper m = new ModelMapper();
         DistritoFavorito d = m.map(dto, DistritoFavorito.class);
         dfS.insert(d);
@@ -49,5 +51,17 @@ public class DistritoFavoritoController {
         }
         dfS.delete(id);
         return ResponseEntity.ok("Distrito Favorito con ID " + id + " eliminado");
+    }
+    @PutMapping
+    public ResponseEntity<String> actualizar(@RequestBody DistritoFavoritoDTO dto) {
+        ModelMapper m = new ModelMapper();
+        DistritoFavorito d = m.map(dto, DistritoFavorito.class);
+        DistritoFavorito existe =dfS.listId(d.getID_DistritoFavorito());
+        if(existe == null){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("No se puede modificar. No existe un registro con el ID " + d.getID_DistritoFavorito());
+        }
+        dfS.update(d);
+        return ResponseEntity.ok("Distrito Favorito modificado correctamente.");
     }
 }

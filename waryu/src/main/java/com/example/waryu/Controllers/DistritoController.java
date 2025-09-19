@@ -2,8 +2,10 @@ package com.example.waryu.Controllers;
 
 import com.example.waryu.Dtos.DistritoDTO;
 import com.example.waryu.Dtos.Nivel_PeligroDTO;
+import com.example.waryu.Dtos.Tipo_NotificacionDTO;
 import com.example.waryu.Entities.Distrito;
 import com.example.waryu.Entities.Nivel_Peligro;
+import com.example.waryu.Entities.Tipo_Notificacion;
 import com.example.waryu.ServiceInterfaces.IDistritoService;
 import com.example.waryu.ServiceInterfaces.INivel_PeligroService;
 import org.modelmapper.ModelMapper;
@@ -50,5 +52,17 @@ public class DistritoController {
         }
         dS.delete(id);
         return ResponseEntity.ok("Distrito con ID " + id + " eliminado");
+    }
+    @PutMapping
+    public ResponseEntity<String> actualizar(@RequestBody DistritoDTO dto) {
+        ModelMapper m = new ModelMapper();
+        Distrito d = m.map(dto, Distrito.class);
+        Distrito existe =dS.listId(d.getID_Distrito());
+        if(existe == null){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("No se puede modificar. No existe un registro con el ID " + d.getID_Distrito());
+        }
+        dS.update(d);
+        return ResponseEntity.ok("Distrito modificado correctamente.");
     }
 }

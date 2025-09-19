@@ -32,4 +32,9 @@ public class BusquedaServiceImplement implements BusquedaService {
     public Busqueda listId(int id) {
         return bR.findById(id).orElse(null);
     }
+
+    @Override
+    public void update(Busqueda busqueda) {
+        bR.save(busqueda);
+    }
 }

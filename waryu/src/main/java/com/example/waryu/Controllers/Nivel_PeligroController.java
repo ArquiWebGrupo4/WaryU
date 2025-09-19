@@ -1,7 +1,9 @@
 package com.example.waryu.Controllers;
 
 import com.example.waryu.Dtos.Nivel_PeligroDTO;
+import com.example.waryu.Dtos.Tipo_NotificacionDTO;
 import com.example.waryu.Entities.Nivel_Peligro;
+import com.example.waryu.Entities.Tipo_Notificacion;
 import com.example.waryu.ServiceInterfaces.INivel_PeligroService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,5 +49,17 @@ public class Nivel_PeligroController {
         }
         nPS.delete(id);
         return ResponseEntity.ok("Registro con ID " + id + " eliminado");
+    }
+    @PutMapping
+    public ResponseEntity<String> actualizar(@RequestBody Nivel_PeligroDTO dto) {
+        ModelMapper m = new ModelMapper();
+        Nivel_Peligro d = m.map(dto, Nivel_Peligro.class);
+        Nivel_Peligro existe =nPS.listId(d.getID_nivel());
+        if(existe == null){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("No se puede modificar. No existe un registro con el ID " + d.getID_nivel());
+        }
+        nPS.update(d);
+        return ResponseEntity.ok("Nivel de peligro modificado correctamente.");
     }
 }

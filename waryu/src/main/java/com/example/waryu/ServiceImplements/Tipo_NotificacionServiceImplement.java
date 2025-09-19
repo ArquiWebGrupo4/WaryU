@@ -34,4 +34,9 @@ public class Tipo_NotificacionServiceImplement implements ITipo_NotificacionServ
     public Tipo_Notificacion listId(int id) {
         return nTN.findById(id).orElse(null);
     }
+
+    @Override
+    public void update(Tipo_Notificacion tipo) {
+        nTN.save(tipo);
+    }
 }

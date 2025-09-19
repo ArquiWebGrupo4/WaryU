@@ -32,4 +32,9 @@ public class DistritoFavoritoServiceImplement implements IDistritoFavoritoServic
     public DistritoFavorito listId(int id) {
         return dfR.findById(id).orElse(null);
     }
+
+    @Override
+    public void update(DistritoFavorito favorito) {
+        dfR.save(favorito);
+    }
 }

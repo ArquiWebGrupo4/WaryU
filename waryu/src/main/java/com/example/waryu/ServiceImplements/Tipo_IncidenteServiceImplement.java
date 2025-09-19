@@ -31,4 +31,9 @@ public class Tipo_IncidenteServiceImplement implements ITipo_IncidenteService {
     public Tipo_Incidente listId(int Id){
         return nTI.findById(Id).orElse(null);
     }
+
+    @Override
+    public void update(Tipo_Incidente tipo) {
+        nTI.save(tipo);
+    }
 }
