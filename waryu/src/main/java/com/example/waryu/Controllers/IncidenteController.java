@@ -3,6 +3,7 @@ package com.example.waryu.Controllers;
 import com.example.waryu.Dtos.IncidenteDTO;
 import com.example.waryu.Dtos.IncidenteSecDTO;
 import com.example.waryu.Dtos.UsuarioDTO;
+import com.example.waryu.Entities.Distrito;
 import com.example.waryu.Entities.Incidente;
 import com.example.waryu.Entities.Usuario;
 import com.example.waryu.ServiceInterfaces.IncidenteService;
@@ -66,5 +67,16 @@ public class IncidenteController {
         }
         iS.update(i);
         return ResponseEntity.ok("Incidente modificado correctamente.");
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<?> findID(@PathVariable("id") Integer id) {
+        Incidente i = iS.findID(id);
+        if (i == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No existe registros, con el ID: " + id);
+        }
+        ModelMapper m = new ModelMapper();
+        IncidenteDTO dto = m.map(i, IncidenteDTO.class);
+        return ResponseEntity.ok(dto);
     }
 }

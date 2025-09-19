@@ -64,4 +64,15 @@ public class DistritoFavoritoController {
         dfS.update(d);
         return ResponseEntity.ok("Distrito Favorito modificado correctamente.");
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<?> findID(@PathVariable("id") Integer id) {
+        DistritoFavorito d = dfS.listId(id);
+        if (d == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No existe registros, con el ID: " + id);
+        }
+        ModelMapper m = new ModelMapper();
+        DistritoFavoritoDTO dto = m.map(d, DistritoFavoritoDTO.class);
+        return ResponseEntity.ok(dto);
+    }
 }

@@ -3,6 +3,7 @@ package com.example.waryu.Controllers;
 import com.example.waryu.Dtos.DistritoDTO;
 import com.example.waryu.Dtos.Nivel_PeligroDTO;
 import com.example.waryu.Dtos.Tipo_NotificacionDTO;
+import com.example.waryu.Entities.Busqueda;
 import com.example.waryu.Entities.Distrito;
 import com.example.waryu.Entities.Nivel_Peligro;
 import com.example.waryu.Entities.Tipo_Notificacion;
@@ -12,6 +13,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -64,5 +66,15 @@ public class DistritoController {
         }
         dS.update(d);
         return ResponseEntity.ok("Distrito modificado correctamente.");
+    }
+    @GetMapping("/{id}")
+    public ResponseEntity<?> findID(@PathVariable("id") Integer id) {
+        Distrito d = dS.listId(id);
+        if (d == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No existe registros, con el ID: " + id);
+        }
+        ModelMapper m = new ModelMapper();
+        DistritoDTO dto = m.map(d, DistritoDTO.class);
+        return ResponseEntity.ok(dto);
     }
 }

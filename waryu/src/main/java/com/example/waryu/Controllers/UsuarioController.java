@@ -3,6 +3,7 @@ package com.example.waryu.Controllers;
 import com.example.waryu.Dtos.Tipo_NotificacionDTO;
 import com.example.waryu.Dtos.UsuarioDTO;
 import com.example.waryu.Dtos.UsuarioSecDTO;
+import com.example.waryu.Entities.Distrito;
 import com.example.waryu.Entities.Tipo_Notificacion;
 import com.example.waryu.Entities.Usuario;
 import com.example.waryu.ServiceImplements.UsuarioServiceImplement;
@@ -67,5 +68,16 @@ public class UsuarioController {
         }
         uS.update(u);
         return ResponseEntity.ok("Usuario modificado correctamente.");
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<?> findID(@PathVariable("id") Integer id) {
+        Usuario u = uS.findID(id);
+        if (u == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No existe registros, con el ID: " + id);
+        }
+        ModelMapper m = new ModelMapper();
+        UsuarioDTO dto = m.map(u, UsuarioDTO.class);
+        return ResponseEntity.ok(dto);
     }
 }

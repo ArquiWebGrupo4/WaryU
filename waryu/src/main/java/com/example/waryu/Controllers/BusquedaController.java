@@ -9,6 +9,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -60,5 +61,15 @@ public class BusquedaController {
         }
         bS.update(d);
         return ResponseEntity.ok("Busqueda modificado correctamente.");
+    }
+    @GetMapping("/{id}")
+    public ResponseEntity<?> findID(@PathVariable("id") Integer id) {
+        Busqueda b = bS.listId(id);
+        if (b == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No existe registros, con el ID: " + id);
+        }
+        ModelMapper m = new ModelMapper();
+        BusquedaDTO dto = m.map(b, BusquedaDTO.class);
+        return ResponseEntity.ok(dto);
     }
 }
