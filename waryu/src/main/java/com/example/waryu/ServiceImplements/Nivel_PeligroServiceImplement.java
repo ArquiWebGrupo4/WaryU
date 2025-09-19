@@ -32,4 +32,9 @@ public class Nivel_PeligroServiceImplement implements INivel_PeligroService {
     public Nivel_Peligro listId(int id) {
         return nPR.findById(id).orElse(null);
     }
+
+    @Override
+    public void update(Nivel_Peligro nivel) {
+        nPR.save(nivel);
+    }
 }

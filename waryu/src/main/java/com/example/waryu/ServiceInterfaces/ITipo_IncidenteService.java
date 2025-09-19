@@ -10,4 +10,5 @@ public interface ITipo_IncidenteService {
     public void insert(Tipo_Incidente tipo);
     public void delete(int Id);
     public Tipo_Incidente listId(int Id);
+    public void update(Tipo_Incidente tipo);
 }

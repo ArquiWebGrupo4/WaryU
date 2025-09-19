@@ -1,7 +1,9 @@
 package com.example.waryu.Controllers;
 
 import com.example.waryu.Dtos.Tipo_IncidenteDTO;
+import com.example.waryu.Dtos.Tipo_NotificacionDTO;
 import com.example.waryu.Entities.Tipo_Incidente;
+import com.example.waryu.Entities.Tipo_Notificacion;
 import com.example.waryu.ServiceInterfaces.ITipo_IncidenteService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +38,7 @@ public class Tipo_IncidenteController {
         Tipo_Incidente d = m.map(dto, Tipo_Incidente.class);
         nTI.insert(d);
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body("Dispositivo registrado correctamente.");
+                .body("Tipo de incidente registrado correctamente.");
     }
     @DeleteMapping("/{id}")
     public ResponseEntity<String> delete(@PathVariable("id") Integer id) {
@@ -46,5 +48,17 @@ public class Tipo_IncidenteController {
         }
         nTI.delete(id);
         return ResponseEntity.ok("Registro con ID " + id + "eliminado");
+    }
+    @PutMapping
+    public ResponseEntity<String> actualizar(@RequestBody Tipo_IncidenteDTO dto) {
+        ModelMapper m = new ModelMapper();
+        Tipo_Incidente d = m.map(dto, Tipo_Incidente.class);
+        Tipo_Incidente existe =nTI.listId(d.getId_Tipo_Incidente());
+        if(existe == null){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("No se puede modificar. No existe un registro con el ID " + d.getId_Tipo_Incidente());
+        }
+        nTI.update(d);
+        return ResponseEntity.ok("Tipo de incidente modificado  correctamente.");
     }
 }

@@ -32,4 +32,9 @@ public class DistritoServiceImplement implements IDistritoService {
     public Distrito listId(int id) {
         return dR.findById(id).orElse(null);
     }
+
+    @Override
+    public void update(Distrito nombre) {
+        dR.save(nombre);
+    }
 }

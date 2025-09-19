@@ -9,4 +9,5 @@ public interface BusquedaService {
     public void insert(Busqueda busqueda);
     public void delete(int id);
     public Busqueda listId(int id);
+    public void update(Busqueda busqueda);
 }

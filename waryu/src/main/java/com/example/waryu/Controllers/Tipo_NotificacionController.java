@@ -47,4 +47,16 @@ public class Tipo_NotificacionController {
         tpN.delete(id);
         return ResponseEntity.ok("Tipo de notificacion con ID " + id + " eliminado");
     }
+    @PutMapping
+    public ResponseEntity<String> actualizar(@RequestBody Tipo_NotificacionDTO dto) {
+        ModelMapper m = new ModelMapper();
+        Tipo_Notificacion d = m.map(dto, Tipo_Notificacion.class);
+        Tipo_Notificacion existe =tpN.listId(d.getId_Tipo_Notificacion());
+        if(existe == null){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("No se puede modificar. No existe un registro con el ID " + d.getId_Tipo_Notificacion());
+        }
+        tpN.update(d);
+        return ResponseEntity.ok("Tipo de notificacion modificado correctamente.");
+    }
 }

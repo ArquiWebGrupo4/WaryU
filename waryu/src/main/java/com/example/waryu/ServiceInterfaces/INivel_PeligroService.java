@@ -9,4 +9,5 @@ public interface INivel_PeligroService {
     public void insert(Nivel_Peligro nivel);
     public void delete(int id);
     public Nivel_Peligro listId(int id);
+    public void update(Nivel_Peligro nivel);
 }

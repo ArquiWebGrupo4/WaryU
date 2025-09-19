@@ -10,4 +10,5 @@ public interface IDistritoService {
     public void insert(Distrito nombre);
     public void delete(int id);
     public Distrito listId(int id);
+    public void update(Distrito nombre);
 }

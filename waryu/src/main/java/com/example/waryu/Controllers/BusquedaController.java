@@ -1,12 +1,9 @@
 package com.example.waryu.Controllers;
 
-import com.example.waryu.Dtos.BusquedaDTO;
-import com.example.waryu.Dtos.BusquedaSecDTO;
-import com.example.waryu.Dtos.DistritoDTO;
-import com.example.waryu.Dtos.UsuarioSecDTO;
-import com.example.waryu.Entities.Busqueda;
-import com.example.waryu.Entities.Distrito;
-import com.example.waryu.Entities.Usuario;
+import com.example.waryu.Dtos.*;
+import com.example.waryu.Entities.*;
+import com.example.waryu.Repositories.IRolRepository;
+import com.example.waryu.Repositories.IUsuarioRepository;
 import com.example.waryu.ServiceInterfaces.BusquedaService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,5 +48,17 @@ public class BusquedaController {
         }
         bS.delete(id);
         return ResponseEntity.ok("Busqueda con ID " + id + " eliminado");
+    }
+    @PutMapping
+    public ResponseEntity<String> actualizar(@RequestBody BusquedaDTO dto) {
+        ModelMapper m = new ModelMapper();
+        Busqueda d = m.map(dto, Busqueda.class);
+        Busqueda existe =bS.listId(d.getID_Busqueda());
+        if(existe == null){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("No se puede modificar. No existe un registro con el ID " + d.getID_Busqueda());
+        }
+        bS.update(d);
+        return ResponseEntity.ok("Busqueda modificado correctamente.");
     }
 }

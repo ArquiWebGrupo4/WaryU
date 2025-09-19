@@ -32,4 +32,9 @@ public class RolServiceImplement implements IRolService {
     public Rol findID(int id) {
         return rR.findById(id).orElse(null);
     }
+
+    @Override
+    public void update(Rol rol) {
+        rR.save(rol);
+    }
 }

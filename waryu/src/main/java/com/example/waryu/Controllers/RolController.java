@@ -1,7 +1,9 @@
 package com.example.waryu.Controllers;
 
 import com.example.waryu.Dtos.RolDTO;
+import com.example.waryu.Dtos.Tipo_NotificacionDTO;
 import com.example.waryu.Entities.Rol;
+import com.example.waryu.Entities.Tipo_Notificacion;
 import com.example.waryu.ServiceInterfaces.IRolService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,5 +52,17 @@ public class RolController {
         }
         rS.delete(id);
         return ResponseEntity.ok("Rol con ID " + id + " eliminado correctamente.");
+    }
+    @PutMapping
+    public ResponseEntity<String> actualizar(@RequestBody RolDTO dto) {
+        ModelMapper m = new ModelMapper();
+        Rol d = m.map(dto, Rol.class);
+        Rol existe =rS.findID(d.getID_Rol());
+        if(existe == null){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("No se puede modificar. No existe un registro con el ID " + d.getID_Rol());
+        }
+        rS.update(d);
+        return ResponseEntity.ok("Rol modificado correctamente.");
     }
 }
