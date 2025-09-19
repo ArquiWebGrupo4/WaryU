@@ -31,4 +31,9 @@ public class IBoton_PanicoImplement implements IBoton_PanicoService {
     public Boton_Panico listId(int id) {
         return  btn_Pan.findById(id).orElse(null);
     }
+
+    @Override
+    public void update(Boton_Panico panico) {
+        btn_Pan.save(panico);
+    }
 }

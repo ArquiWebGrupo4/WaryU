@@ -10,4 +10,5 @@ public interface IncidenteService {
     public void insert(Incidente incidente);
     public void delete(int id);
     public Incidente findID(int id);
+    public void update(Incidente incidente);
 }

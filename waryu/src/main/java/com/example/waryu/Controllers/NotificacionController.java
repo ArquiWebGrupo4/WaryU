@@ -53,4 +53,17 @@ public class NotificacionController {
         nS.Delete(id);
         return ResponseEntity.ok("Notificacion con ID " + id + " eliminado correctamente.");
     }
+
+    @PutMapping
+    public ResponseEntity<String> actualizar(@RequestBody NotificacionDTO dto) {
+        ModelMapper m = new ModelMapper();
+        Notificacion n = m.map(dto, Notificacion.class);
+        Notificacion existe =nS.ListarId(n.getID_Notificacion());
+        if(existe == null){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("No se puede modificar. No existe un registro con el ID " + n.getID_Notificacion());
+        }
+        nS.update(n);
+        return ResponseEntity.ok("Notificacion modificada correctamente.");
+    }
 }

@@ -32,4 +32,9 @@ public class Reporte_IncidenteServiceImplement implements IReporte_IncidenteServ
     public Reporte_Incidente findID(int id) {
         return rIR.findById(id).orElse(null);
     }
+
+    @Override
+    public void update(Reporte_Incidente reporte) {
+        rIR.save(reporte);
+    }
 }

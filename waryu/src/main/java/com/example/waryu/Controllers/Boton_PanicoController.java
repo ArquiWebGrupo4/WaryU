@@ -2,8 +2,10 @@ package com.example.waryu.Controllers;
 
 import com.example.waryu.Dtos.Boton_PanicoDTO;
 import com.example.waryu.Dtos.Boton_PanicoSecDTO;
+import com.example.waryu.Dtos.UsuarioDTO;
 import com.example.waryu.Entities.Boton_Panico;
 import com.example.waryu.Entities.Busqueda;
+import com.example.waryu.Entities.Usuario;
 import com.example.waryu.ServiceInterfaces.IBoton_PanicoService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,5 +49,18 @@ public class Boton_PanicoController {
         }
         btn_pan.delete(id);
         return ResponseEntity.ok("Busqueda con ID " + id + " eliminado");
+    }
+
+    @PutMapping
+    public ResponseEntity<String> actualizar(@RequestBody Boton_PanicoDTO dto) {
+        ModelMapper m = new ModelMapper();
+        Boton_Panico b = m.map(dto, Boton_Panico.class);
+        Boton_Panico existe =btn_pan.listId(b.getID_Boton_Panico());
+        if(existe == null){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("No se puede modificar. No existe un registro con el ID " + b.getID_Boton_Panico());
+        }
+        btn_pan.update(b);
+        return ResponseEntity.ok("Boton de panico modificado correctamente.");
     }
 }
