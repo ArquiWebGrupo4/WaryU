@@ -54,4 +54,17 @@ public class IncidenteController {
         iS.delete(id);
         return ResponseEntity.ok("Incidente con ID " + id + " eliminado correctamente.");
     }
+
+    @PutMapping
+    public ResponseEntity<String> actualizar(@RequestBody IncidenteDTO dto) {
+        ModelMapper m = new ModelMapper();
+        Incidente i = m.map(dto, Incidente.class);
+        Incidente existe =iS.findID(i.getID_Incidente());
+        if(existe == null){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("No se puede modificar. No existe un registro con el ID " + i.getID_Incidente());
+        }
+        iS.update(i);
+        return ResponseEntity.ok("Incidente modificado correctamente.");
+    }
 }

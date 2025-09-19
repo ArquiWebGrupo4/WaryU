@@ -10,4 +10,5 @@ public interface IBoton_PanicoService {
     public List<Boton_Panico> list();
     public void delete(int id);
     public Boton_Panico listId(int id);
+    public void update(Boton_Panico panico);
 }

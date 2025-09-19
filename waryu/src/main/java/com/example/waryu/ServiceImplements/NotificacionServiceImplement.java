@@ -32,4 +32,9 @@ public class NotificacionServiceImplement implements INotificacionService {
     public Notificacion ListarId(int ID_Notificacion) {
         return nR.findById(ID_Notificacion).orElse(null) ;
     }
+
+    @Override
+    public void update(Notificacion notificacion) {
+        nR.save(notificacion);
+    }
 }

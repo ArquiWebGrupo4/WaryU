@@ -32,4 +32,9 @@ public class IncidenteServiceImplement implements IncidenteService {
     public Incidente findID(int id) {
         return iR.findById(id).orElse(null);
     }
+
+    @Override
+    public void update(Incidente incidente) {
+        iR.save(incidente);
+    }
 }

@@ -32,4 +32,9 @@ public class UsuarioServiceImplement implements IUsuarioService {
     public Usuario findID(int id) {
         return uR.findById(id).orElse(null);
     }
+
+    @Override
+    public void update(Usuario usuario) {
+        uR.save(usuario);
+    }
 }

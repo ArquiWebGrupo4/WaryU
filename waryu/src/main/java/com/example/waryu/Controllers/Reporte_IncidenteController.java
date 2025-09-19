@@ -3,6 +3,7 @@ package com.example.waryu.Controllers;
 import com.example.waryu.Dtos.Reporte_IncidenteDTO;
 import com.example.waryu.Dtos.Reporte_IncidenteSecDTO;
 import com.example.waryu.Dtos.RolDTO;
+import com.example.waryu.Dtos.UsuarioDTO;
 import com.example.waryu.Entities.Incidente;
 import com.example.waryu.Entities.Reporte_Incidente;
 import com.example.waryu.Entities.Rol;
@@ -73,5 +74,18 @@ public class Reporte_IncidenteController {
         }
         rIS.delete(id);
         return ResponseEntity.ok("Rol con ID " + id + " eliminado correctamente.");
+    }
+
+    @PutMapping
+    public ResponseEntity<String> actualizar(@RequestBody Reporte_IncidenteDTO dto) {
+        ModelMapper m = new ModelMapper();
+        Reporte_Incidente r = m.map(dto, Reporte_Incidente.class);
+        Reporte_Incidente existe =rIS.findID(r.getID_Reporte());
+        if(existe == null){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("No se puede modificar. No existe un registro con el ID " + r.getID_Reporte());
+        }
+        rIS.update(r);
+        return ResponseEntity.ok("Reporte de incidente modificado correctamente.");
     }
 }
