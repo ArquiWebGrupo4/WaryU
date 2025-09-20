@@ -63,4 +63,15 @@ public class Boton_PanicoController {
         btn_pan.update(b);
         return ResponseEntity.ok("Boton de panico modificado correctamente.");
     }
+    @GetMapping("/{id}")
+    public ResponseEntity<?> findID(@PathVariable("id") Integer id) {
+        Boton_Panico d = btn_pan.listId(id);
+        if (d == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No existe registros, con el ID: " + id);
+        }
+        ModelMapper m = new ModelMapper();
+        Boton_PanicoDTO dto = m.map(d, Boton_PanicoDTO.class);
+        return ResponseEntity.ok(dto);
+    }
+
 }

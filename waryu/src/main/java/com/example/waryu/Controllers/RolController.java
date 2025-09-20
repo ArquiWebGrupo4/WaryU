@@ -2,6 +2,7 @@ package com.example.waryu.Controllers;
 
 import com.example.waryu.Dtos.RolDTO;
 import com.example.waryu.Dtos.Tipo_NotificacionDTO;
+import com.example.waryu.Entities.Distrito;
 import com.example.waryu.Entities.Rol;
 import com.example.waryu.Entities.Tipo_Notificacion;
 import com.example.waryu.ServiceInterfaces.IRolService;
@@ -64,5 +65,16 @@ public class RolController {
         }
         rS.update(d);
         return ResponseEntity.ok("Rol modificado correctamente.");
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<?> findID(@PathVariable("id") Integer id) {
+        Rol r = rS.findID(id);
+        if (r == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No existe registros, con el ID: " + id);
+        }
+        ModelMapper m = new ModelMapper();
+        RolDTO dto = m.map(r, RolDTO.class);
+        return ResponseEntity.ok(dto);
     }
 }

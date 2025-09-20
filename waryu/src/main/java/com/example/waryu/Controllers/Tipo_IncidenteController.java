@@ -2,6 +2,7 @@ package com.example.waryu.Controllers;
 
 import com.example.waryu.Dtos.Tipo_IncidenteDTO;
 import com.example.waryu.Dtos.Tipo_NotificacionDTO;
+import com.example.waryu.Entities.Distrito;
 import com.example.waryu.Entities.Tipo_Incidente;
 import com.example.waryu.Entities.Tipo_Notificacion;
 import com.example.waryu.ServiceInterfaces.ITipo_IncidenteService;
@@ -60,5 +61,16 @@ public class Tipo_IncidenteController {
         }
         nTI.update(d);
         return ResponseEntity.ok("Tipo de incidente modificado  correctamente.");
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<?> findID(@PathVariable("id") Integer id) {
+        Tipo_Incidente ti = nTI.listId(id);
+        if (ti == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No existe registros, con el ID: " + id);
+        }
+        ModelMapper m = new ModelMapper();
+        Tipo_IncidenteDTO  dto = m.map(ti, Tipo_IncidenteDTO.class);
+        return ResponseEntity.ok(dto);
     }
 }

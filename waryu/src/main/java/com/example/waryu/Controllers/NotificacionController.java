@@ -2,13 +2,16 @@ package com.example.waryu.Controllers;
 
 import com.example.waryu.Dtos.NotificacionDTO;
 import com.example.waryu.Dtos.UsuarioDTO;
+import com.example.waryu.Entities.Distrito;
 import com.example.waryu.Entities.Notificacion;
 import com.example.waryu.Entities.Usuario;
 import com.example.waryu.ServiceInterfaces.INotificacionService;
+import org.aspectj.weaver.ast.Not;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -65,5 +68,16 @@ public class NotificacionController {
         }
         nS.update(n);
         return ResponseEntity.ok("Notificacion modificada correctamente.");
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<?> findID(@PathVariable("id") Integer id) {
+        Notificacion n = nS.ListarId(id);
+        if (n == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No existe registros, con el ID: " + id);
+        }
+        ModelMapper m = new ModelMapper();
+        NotificacionDTO dto = m.map(n, NotificacionDTO.class);
+        return ResponseEntity.ok(dto);
     }
 }

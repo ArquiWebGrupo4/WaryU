@@ -1,12 +1,14 @@
 package com.example.waryu.Controllers;
 
 import com.example.waryu.Dtos.Tipo_NotificacionDTO;
+import com.example.waryu.Entities.Distrito;
 import com.example.waryu.Entities.Tipo_Notificacion;
 import com.example.waryu.ServiceInterfaces.ITipo_NotificacionService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -58,5 +60,16 @@ public class Tipo_NotificacionController {
         }
         tpN.update(d);
         return ResponseEntity.ok("Tipo de notificacion modificado correctamente.");
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<?> findID(@PathVariable("id") Integer id) {
+        Tipo_Notificacion tn = tpN.listId(id);
+        if (tn == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No existe registros, con el ID: " + id);
+        }
+        ModelMapper m = new ModelMapper();
+        Tipo_NotificacionDTO dto = m.map(tn, Tipo_NotificacionDTO.class);
+        return ResponseEntity.ok(dto);
     }
 }

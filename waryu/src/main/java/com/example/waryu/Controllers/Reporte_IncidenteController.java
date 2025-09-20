@@ -4,10 +4,7 @@ import com.example.waryu.Dtos.Reporte_IncidenteDTO;
 import com.example.waryu.Dtos.Reporte_IncidenteSecDTO;
 import com.example.waryu.Dtos.RolDTO;
 import com.example.waryu.Dtos.UsuarioDTO;
-import com.example.waryu.Entities.Incidente;
-import com.example.waryu.Entities.Reporte_Incidente;
-import com.example.waryu.Entities.Rol;
-import com.example.waryu.Entities.Usuario;
+import com.example.waryu.Entities.*;
 import com.example.waryu.ServiceInterfaces.IReporte_IncidenteService;
 import com.example.waryu.ServiceInterfaces.IUsuarioService;
 import com.example.waryu.ServiceInterfaces.IncidenteService;
@@ -87,5 +84,16 @@ public class Reporte_IncidenteController {
         }
         rIS.update(r);
         return ResponseEntity.ok("Reporte de incidente modificado correctamente.");
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<?> findID(@PathVariable("id") Integer id) {
+        Reporte_Incidente ri = rIS.findID(id);
+        if (ri == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No existe registros, con el ID: " + id);
+        }
+        ModelMapper m = new ModelMapper();
+        Reporte_IncidenteDTO  dto = m.map(ri, Reporte_IncidenteDTO.class);
+        return ResponseEntity.ok(dto);
     }
 }
