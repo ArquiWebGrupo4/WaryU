@@ -2,9 +2,11 @@ package com.example.waryu.Entities;
 
 import jakarta.persistence.*;
 
+import java.io.Serializable;
+
 @Entity
 @Table(name = "Rol")
-public class Rol {
+public class Rol implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int ID_Rol;

@@ -11,6 +11,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,6 +25,7 @@ public class NotificacionController {
     private INotificacionService nS;
 
     @GetMapping
+    @PreAuthorize("hasAuthority('usuario')")
     public ResponseEntity<?> list() {
         List<NotificacionDTO> lista = nS.List().stream().map(x -> {
             ModelMapper m = new ModelMapper();

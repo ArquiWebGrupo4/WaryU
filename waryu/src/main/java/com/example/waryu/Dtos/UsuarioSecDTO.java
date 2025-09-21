@@ -7,14 +7,14 @@ import java.time.LocalDate;
 @JsonPropertyOrder({
         "id_Usuario",
         "rol",
-        "nombre_Usuario",
-        "nombre_Completo",
+        "nombreUsuario",
+        "nombreCompleto",
         "fecha_Registro"
 })
 public class UsuarioSecDTO {
     private int ID_Usuario;
-    private String Nombre_Usuario;
-    private String Nombre_Completo;
+    private String NombreUsuario;
+    private String NombreCompleto;
     private LocalDate Fecha_Registro;
     private Rol rol;
 
@@ -26,20 +26,20 @@ public class UsuarioSecDTO {
         this.ID_Usuario = ID_Usuario;
     }
 
-    public String getNombre_Usuario() {
-        return Nombre_Usuario;
+    public String getNombreUsuario() {
+        return NombreUsuario;
     }
 
-    public void setNombre_Usuario(String nombre_Usuario) {
-        Nombre_Usuario = nombre_Usuario;
+    public void setNombreUsuario(String nombreUsuario) {
+        NombreUsuario = nombreUsuario;
     }
 
-    public String getNombre_Completo() {
-        return Nombre_Completo;
+    public String getNombreCompleto() {
+        return NombreCompleto;
     }
 
-    public void setNombre_Completo(String nombre_Completo) {
-        Nombre_Completo = nombre_Completo;
+    public void setNombreCompleto(String nombreCompleto) {
+        NombreCompleto = nombreCompleto;
     }
 
     public LocalDate getFecha_Registro() {

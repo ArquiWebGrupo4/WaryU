@@ -10,6 +10,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,6 +24,7 @@ public class Nivel_PeligroController {
     private INivel_PeligroService nPS;
 
     @GetMapping
+    @PreAuthorize("hasAuthority('usuario')")
     public ResponseEntity<?> listar() {
         List<Nivel_PeligroDTO> lista = nPS.list().stream().map(x -> {
             ModelMapper m = new ModelMapper();

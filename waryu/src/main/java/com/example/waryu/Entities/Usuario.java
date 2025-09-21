@@ -2,21 +2,22 @@ package com.example.waryu.Entities;
 
 import jakarta.persistence.*;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 @Entity
 @Table(name = "Usuario")
-public class Usuario {
+public class Usuario implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int ID_Usuario;
-    @Column(name = "Nombre_Usuario", nullable = false, length = 20)
-    private String Nombre_Usuario;
-    @Column(name = "Nombre_Completo", nullable = false, length = 150)
-    private String Nombre_Completo;
+    @Column(name = "nombreusuario", nullable = false, length = 20)
+    private String nombreusuario;
+    @Column(name = "NombreCompleto", nullable = false, length = 150)
+    private String NombreCompleto;
     @Column(name = "Email", nullable = false, length = 40)
     private String Email;
-    @Column(name = "Contrasena_hash", nullable = false, length = 64)
-    private String Contrasena_hash;
+    @Column(name = "contrasenahash", nullable = false, length = 64)
+    private String contrasenahash;
     @Column(name = "Fecha_Registro", nullable = false)
     private LocalDate Fecha_Registro;
     @Column(name = "Telefono", nullable = false, length = 15)
@@ -32,12 +33,12 @@ public class Usuario {
 
     public Usuario() {}
 
-    public Usuario(int ID_Usuario, String nombre_Usuario, String nombre_Completo, String email, String contrasena_hash, LocalDate fecha_Registro, String telefono, String telefono_Panico, String mensaje, Rol rol) {
+    public Usuario(int ID_Usuario, String nombreusuario, String nombreCompleto, String email, String contrasenahash, LocalDate fecha_Registro, String telefono, String telefono_Panico, String mensaje, Rol rol) {
         this.ID_Usuario = ID_Usuario;
-        Nombre_Usuario = nombre_Usuario;
-        Nombre_Completo = nombre_Completo;
+        this.nombreusuario = nombreusuario;
+        NombreCompleto = nombreCompleto;
         Email = email;
-        Contrasena_hash = contrasena_hash;
+        this.contrasenahash = contrasenahash;
         Fecha_Registro = fecha_Registro;
         Telefono = telefono;
         Telefono_Panico = telefono_Panico;
@@ -53,20 +54,20 @@ public class Usuario {
         this.ID_Usuario = ID_Usuario;
     }
 
-    public String getNombre_Usuario() {
-        return Nombre_Usuario;
+    public String getNombreusuario() {
+        return nombreusuario;
     }
 
-    public void setNombre_Usuario(String nombre_Usuario) {
-        Nombre_Usuario = nombre_Usuario;
+    public void setNombreusuario(String nombreusuario) {
+        this.nombreusuario = nombreusuario;
     }
 
-    public String getNombre_Completo() {
-        return Nombre_Completo;
+    public String getNombreCompleto() {
+        return NombreCompleto;
     }
 
-    public void setNombre_Completo(String nombre_Completo) {
-        Nombre_Completo = nombre_Completo;
+    public void setNombreCompleto(String nombreCompleto) {
+        NombreCompleto = nombreCompleto;
     }
 
     public String getEmail() {
@@ -77,12 +78,12 @@ public class Usuario {
         Email = email;
     }
 
-    public String getContrasena_hash() {
-        return Contrasena_hash;
+    public String getContrasenahash() {
+        return contrasenahash;
     }
 
-    public void setContrasena_hash(String contrasena_hash) {
-        Contrasena_hash = contrasena_hash;
+    public void setContrasenahash(String contrasenahash) {
+        this.contrasenahash = contrasenahash;
     }
 
     public LocalDate getFecha_Registro() {
