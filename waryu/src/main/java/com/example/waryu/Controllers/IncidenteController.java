@@ -1,8 +1,6 @@
 package com.example.waryu.Controllers;
 
-import com.example.waryu.Dtos.IncidenteDTO;
-import com.example.waryu.Dtos.IncidenteSecDTO;
-import com.example.waryu.Dtos.UsuarioDTO;
+import com.example.waryu.Dtos.*;
 import com.example.waryu.Entities.Distrito;
 import com.example.waryu.Entities.Incidente;
 import com.example.waryu.Entities.Usuario;
@@ -16,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -108,4 +107,38 @@ public class IncidenteController {
         }).collect(Collectors.toList());
         return ResponseEntity.ok(dto);
     }
+    @GetMapping("/contador_IncidentesXTipo")
+    public ResponseEntity<?> ContarXTipo() {
+        List<Conteo_IncidenteXTipoDTO>listaDto=new ArrayList<Conteo_IncidenteXTipoDTO>();
+        List<String[]>fila=iS.contarIncidentesPorTipo();
+        if (fila.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("No se encontraron registros");
+        }
+        for(String[] x:fila) {
+            Conteo_IncidenteXTipoDTO dto=new Conteo_IncidenteXTipoDTO();
+            dto.setTipoIncidente(x[0]);
+            dto.setCantidad(Integer.parseInt(x[1]));
+            listaDto.add(dto);
+        }
+        return ResponseEntity.ok(listaDto);
+    }
+    @GetMapping("/contador_IncidentesXNivel")
+    public ResponseEntity<?> ContarXNivel() {
+        List<Conteo_IncidenteXNivelDTO>listaDto=new ArrayList<Conteo_IncidenteXNivelDTO>();
+        List<String[]>fila=iS.contarIncidentesPorNivel();
+        if (fila.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("No se encontraron registros");
+        }
+        for(String[] x:fila) {
+            Conteo_IncidenteXNivelDTO dto=new Conteo_IncidenteXNivelDTO();
+            dto.setNivelDeIncidente(x[0]);
+            dto.setCantidad(Integer.parseInt(x[1]));
+            listaDto.add(dto);
+        }
+        return ResponseEntity.ok(listaDto);
+    }
+
+
 }

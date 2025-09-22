@@ -15,4 +15,7 @@ public interface IncidenteService {
     public void update(Incidente incidente);
     public List<Incidente> listarenfechas(LocalDateTime fecha1, LocalDateTime fecha2);
     public List<Incidente> listarendistrito(String distrito);
+    public List<String[]> contarIncidentesPorTipo();
+    public List<String[]> contarIncidentesPorNivel();
 }
+
