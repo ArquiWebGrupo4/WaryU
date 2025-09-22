@@ -49,4 +49,17 @@ public class IncidenteServiceImplement implements IncidenteService {
     public List<Incidente> listarendistrito(String distrito) {
         return iR.listardedistrito(distrito);
     }
+
+    @Override
+    public List<String[]> contarIncidentesPorTipo() {
+        return iR.contarIncidentesPorTipo();
+    }
+
+    @Override
+    public List<String[]> contarIncidentesPorNivel() {
+        return iR.contarIncidentesPorNivel();
+    }
+
+
+
 }
