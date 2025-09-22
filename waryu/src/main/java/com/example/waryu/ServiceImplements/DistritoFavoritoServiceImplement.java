@@ -1,6 +1,7 @@
 package com.example.waryu.ServiceImplements;
 
 
+import com.example.waryu.Entities.Distrito;
 import com.example.waryu.Entities.DistritoFavorito;
 import com.example.waryu.Repositories.IDistritoFavoritoRepository;
 import com.example.waryu.ServiceInterfaces.IDistritoFavoritoService;
@@ -36,5 +37,10 @@ public class DistritoFavoritoServiceImplement implements IDistritoFavoritoServic
     @Override
     public void update(DistritoFavorito favorito) {
         dfR.save(favorito);
+    }
+
+    @Override
+    public List<Distrito> findDistritoFavoritoByUsuario(Integer id) {
+        return dfR.findDistritoFavoritoByUsuario(id);
     }
 }

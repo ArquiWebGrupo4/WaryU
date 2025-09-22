@@ -98,4 +98,17 @@ public class Reporte_IncidenteController {
         Reporte_IncidenteDTO  dto = m.map(ri, Reporte_IncidenteDTO.class);
         return ResponseEntity.ok(dto);
     }
+    @GetMapping("/ReporteByIncidente")
+    public ResponseEntity<?> findReporteByIncidente(@RequestParam("id") int id) {
+        List<Reporte_Incidente> list = rIS.findbyIncidente(id);
+        if (list.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("No existen reportes registrados del incidente.");
+        }
+        List<Reporte_IncidenteSecDTO> dto = list.stream().map(x->{
+            ModelMapper m = new ModelMapper();
+            return m.map(x, Reporte_IncidenteSecDTO.class);
+        }).collect(Collectors.toList());
+        return ResponseEntity.ok(list);
+    }
 }

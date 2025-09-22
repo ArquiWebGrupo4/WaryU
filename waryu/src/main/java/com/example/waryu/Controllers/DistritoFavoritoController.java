@@ -77,4 +77,16 @@ public class DistritoFavoritoController {
         DistritoFavoritoDTO dto = m.map(d, DistritoFavoritoDTO.class);
         return ResponseEntity.ok(dto);
     }
+    @GetMapping("/DistritoFavoritosUsuarios")
+    public ResponseEntity<?> listDistritoFavoritoUsuarios(@RequestParam("id") Integer id) {
+        List<DistritoDTO> dto = dfS.findDistritoFavoritoByUsuario(id).stream().map(x-> {
+            ModelMapper m = new ModelMapper();
+            return m.map(x, DistritoDTO.class);
+        }).collect(Collectors.toList());
+        if (dto.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("No existen distritos favoritos registrados.");
+        }
+        return ResponseEntity.ok(dto);
+    }
 }

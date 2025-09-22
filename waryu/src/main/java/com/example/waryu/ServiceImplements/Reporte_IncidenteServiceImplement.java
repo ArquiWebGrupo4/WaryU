@@ -37,4 +37,9 @@ public class Reporte_IncidenteServiceImplement implements IReporte_IncidenteServ
     public void update(Reporte_Incidente reporte) {
         rIR.save(reporte);
     }
+
+    @Override
+    public List<Reporte_Incidente> findbyIncidente(int idincidente) {
+        return rIR.findbyIncidente(idincidente);
+    }
 }

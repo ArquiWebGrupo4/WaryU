@@ -11,5 +11,4 @@ import org.springframework.transaction.annotation.Transactional;
 public interface IUsuarioRepository extends JpaRepository<Usuario, Integer> {
 
     public Usuario findOneByNombreusuario(String nombreusuario);
-
 }
