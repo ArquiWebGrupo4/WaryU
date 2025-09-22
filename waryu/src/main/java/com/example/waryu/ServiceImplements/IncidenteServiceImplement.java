@@ -7,6 +7,8 @@ import com.example.waryu.ServiceInterfaces.IncidenteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -36,5 +38,15 @@ public class IncidenteServiceImplement implements IncidenteService {
     @Override
     public void update(Incidente incidente) {
         iR.save(incidente);
+    }
+
+    @Override
+    public List<Incidente> listarenfechas(LocalDateTime fecha1, LocalDateTime fecha2) {
+        return iR.listarentrefechas(fecha1, fecha2);
+    }
+
+    @Override
+    public List<Incidente> listarendistrito(String distrito) {
+        return iR.listardedistrito(distrito);
     }
 }

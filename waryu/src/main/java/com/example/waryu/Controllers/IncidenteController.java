@@ -14,6 +14,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -79,6 +81,31 @@ public class IncidenteController {
         }
         ModelMapper m = new ModelMapper();
         IncidenteDTO dto = m.map(i, IncidenteDTO.class);
+        return ResponseEntity.ok(dto);
+    }
+    @GetMapping("/incidentesfechas")
+    public ResponseEntity<?> listarenfechas(@RequestParam("fecha1") LocalDateTime fecha1, @RequestParam("fecha2") LocalDateTime fecha2) {
+        List<Incidente> i = iS.listarenfechas(fecha1, fecha2);
+        if (i.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No existe registros");
+        }
+        List<IncidenteSecDTO> lista = i.stream().map(x -> {
+            ModelMapper m = new ModelMapper();
+            return m.map(x, IncidenteSecDTO.class);
+        }).collect(Collectors.toList());
+
+        return ResponseEntity.ok(lista);
+    }
+    @GetMapping("/incidentesdistrito")
+    public ResponseEntity<?> listarendistritos(@RequestParam("distrito") String distrito) {
+        List<Incidente> i = iS.listarendistrito(distrito);
+        if (i.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No existe registros");
+        }
+        List<IncidenteSecDTO> dto = i.stream().map(x->{
+            ModelMapper m = new ModelMapper();
+            return m.map(x, IncidenteSecDTO.class);
+        }).collect(Collectors.toList());
         return ResponseEntity.ok(dto);
     }
 }
