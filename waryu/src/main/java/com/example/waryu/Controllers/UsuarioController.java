@@ -1,6 +1,7 @@
 package com.example.waryu.Controllers;
 
 import com.example.waryu.Dtos.Tipo_NotificacionDTO;
+import com.example.waryu.Dtos.UsoBotonUsuariosDTO;
 import com.example.waryu.Dtos.UsuarioDTO;
 import com.example.waryu.Dtos.UsuarioSecDTO;
 import com.example.waryu.Entities.Distrito;
@@ -11,10 +12,13 @@ import com.example.waryu.ServiceInterfaces.IUsuarioService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -23,6 +27,8 @@ import java.util.stream.Collectors;
 public class UsuarioController {
     @Autowired
     private IUsuarioService uS;
+    @Autowired
+    private IUsuarioService iUsuarioService;
 
     @GetMapping
     @PreAuthorize("hasAuthority('usuario')")
@@ -81,5 +87,21 @@ public class UsuarioController {
         ModelMapper m = new ModelMapper();
         UsuarioDTO dto = m.map(u, UsuarioDTO.class);
         return ResponseEntity.ok(dto);
+    }
+    @GetMapping("/uso-boton-de-panico-por-usuario")
+    public ResponseEntity<?> usoBotonDePanicoPorUsuario() {
+        List<UsoBotonUsuariosDTO> listaDTO = new ArrayList<>();
+        List<String[]> fila = uS.UsoBotonPanicoPorUsuario();
+        if (fila.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.OK).contentType(MediaType.TEXT_PLAIN)
+                    .body("No hay usuarios con activaciones del boton de panico");
+        }
+        for (String[] x : fila) {
+            UsoBotonUsuariosDTO dto = new UsoBotonUsuariosDTO();
+            dto.setNombre(x[0]);
+            dto.setUsosTotales(Integer.parseInt(x[1]));
+            listaDTO.add(dto);
+        }
+        return ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON).body(listaDTO);
     }
 }

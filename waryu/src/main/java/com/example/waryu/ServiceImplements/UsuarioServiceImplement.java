@@ -1,5 +1,6 @@
 package com.example.waryu.ServiceImplements;
 
+import com.example.waryu.Dtos.UsoBotonUsuariosDTO;
 import com.example.waryu.Entities.Usuario;
 import com.example.waryu.Repositories.IUsuarioRepository;
 import com.example.waryu.ServiceInterfaces.IUsuarioService;
@@ -36,5 +37,10 @@ public class UsuarioServiceImplement implements IUsuarioService {
     @Override
     public void update(Usuario usuario) {
         uR.save(usuario);
+    }
+
+    @Override
+    public List<String[]> UsoBotonPanicoPorUsuario() {
+        return uR.UsoBotonPanicoPorUsuario();
     }
 }

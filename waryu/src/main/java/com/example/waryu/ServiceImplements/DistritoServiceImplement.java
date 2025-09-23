@@ -1,5 +1,6 @@
 package com.example.waryu.ServiceImplements;
 
+import com.example.waryu.Dtos.DistritoPeligrosoDTO;
 import com.example.waryu.Entities.Distrito;
 import com.example.waryu.Repositories.IDistritoRepository;
 import com.example.waryu.ServiceInterfaces.IDistritoService;
@@ -37,4 +38,10 @@ public class DistritoServiceImplement implements IDistritoService {
     public void update(Distrito nombre) {
         dR.save(nombre);
     }
+
+    @Override
+    public List<Object[]> DistritoPeligroso() {
+        return dR.contarIncidentesPorNivel();
+    }
+
 }

@@ -1,22 +1,18 @@
 package com.example.waryu.Controllers;
 
 import com.example.waryu.Dtos.DistritoDTO;
-import com.example.waryu.Dtos.Nivel_PeligroDTO;
-import com.example.waryu.Dtos.Tipo_NotificacionDTO;
-import com.example.waryu.Entities.Busqueda;
+import com.example.waryu.Dtos.DistritoPeligrosoDTO;
 import com.example.waryu.Entities.Distrito;
-import com.example.waryu.Entities.Nivel_Peligro;
-import com.example.waryu.Entities.Tipo_Notificacion;
 import com.example.waryu.ServiceInterfaces.IDistritoService;
-import com.example.waryu.ServiceInterfaces.INivel_PeligroService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -78,5 +74,28 @@ public class DistritoController {
         ModelMapper m = new ModelMapper();
         DistritoDTO dto = m.map(d, DistritoDTO.class);
         return ResponseEntity.ok(dto);
+    }
+    @GetMapping("/Distritos-con-incidentes-peligrosos")
+    public ResponseEntity<?> getIncidentesPeligrososPorDistrito() {
+        List<Object[]> results = dS.DistritoPeligroso();
+        List<DistritoPeligrosoDTO> listaDto = new ArrayList<>();
+
+        if (results == null || results.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .contentType(MediaType.TEXT_PLAIN)
+                    .body("No hay incidentes peligrosos registrados.");
+        }
+
+        for (Object[] result : results) {
+            DistritoPeligrosoDTO dto = new DistritoPeligrosoDTO();
+            dto.setDistrito((String) result[0]);
+            dto.setNivelPeligro(((Number) result[1]).intValue());
+            dto.setTotal(((Number) result[2]).longValue());
+            listaDto.add(dto);
+        }
+
+        return ResponseEntity.ok()
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(listaDto);
     }
 }

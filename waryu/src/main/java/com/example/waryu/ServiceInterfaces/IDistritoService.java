@@ -1,5 +1,6 @@
 package com.example.waryu.ServiceInterfaces;
 
+import com.example.waryu.Dtos.DistritoPeligrosoDTO;
 import com.example.waryu.Entities.Distrito;
 
 
@@ -11,4 +12,5 @@ public interface IDistritoService {
     public void delete(int id);
     public Distrito listId(int id);
     public void update(Distrito nombre);
+    public List<Object[]> DistritoPeligroso();
 }

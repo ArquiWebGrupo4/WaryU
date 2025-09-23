@@ -1,5 +1,6 @@
 package com.example.waryu.ServiceInterfaces;
 
+import com.example.waryu.Dtos.UsoBotonUsuariosDTO;
 import com.example.waryu.Entities.Usuario;
 
 import java.util.List;
@@ -10,4 +11,5 @@ public interface IUsuarioService {
     public void delete(int id);
     public Usuario findID(int id);
     public void update(Usuario usuario);
+    public List<String[]> UsoBotonPanicoPorUsuario();
 }
