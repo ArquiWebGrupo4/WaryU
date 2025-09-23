@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -74,6 +75,18 @@ public class Boton_PanicoController {
         ModelMapper m = new ModelMapper();
         Boton_PanicoDTO dto = m.map(d, Boton_PanicoDTO.class);
         return ResponseEntity.ok(dto);
+    }
+    @GetMapping("/busquedaxfechas")
+    public ResponseEntity<?>Buscarporfecha(@RequestParam LocalDate fechaini, @RequestParam LocalDate fechafin){
+        List<Boton_Panico> btns = btn_pan.Buscarporfechas(fechaini,fechafin);
+        if(btns.isEmpty()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No existen registros en el intervalo de fechas solicitadas");
+        }
+        List<Boton_PanicoDTO> listDTO = btns.stream().map(x->{
+            ModelMapper mapper = new ModelMapper();
+            return mapper.map(x, Boton_PanicoDTO.class);
+        }).collect(Collectors.toList());
+        return ResponseEntity.ok(listDTO);
     }
 
 }

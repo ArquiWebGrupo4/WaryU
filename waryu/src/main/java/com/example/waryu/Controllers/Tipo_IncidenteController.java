@@ -75,4 +75,19 @@ public class Tipo_IncidenteController {
         Tipo_IncidenteDTO  dto = m.map(ti, Tipo_IncidenteDTO.class);
         return ResponseEntity.ok(dto);
     }
+
+    @GetMapping("/Contarxtipo")
+    public ResponseEntity<?> contartipo(@RequestParam String tipodesc){
+        List<Tipo_Incidente> tinc = nTI.cantidadtipoincidente(tipodesc);
+        if (tinc.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No existen dispositivos registros.");
+        }
+        List<Tipo_IncidenteDTO> listDTO = tinc.stream().map(x->{
+            ModelMapper m = new ModelMapper();
+            return m.map(x, Tipo_IncidenteDTO.class);
+        }).collect(Collectors.toList());
+        return ResponseEntity.ok(listDTO);
+
+
+    }
 }
