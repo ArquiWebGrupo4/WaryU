@@ -8,13 +8,12 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
 public interface IDistritoRepository extends JpaRepository<Distrito,Integer> {
-    @Query(value = "SELECT d.nombre AS distrito, n.nivel AS nivel_peligro, COUNT(i.id_incidente) AS total " +
-            "FROM distrito d " +
-            "JOIN incidente i ON d.id_distrito = i.id_distrito " +
-            "JOIN nivel_peligro n ON i.id_nivel = n.id_nivel " +
+    @Query("SELECT d.Nombre AS distrito, n.nivel AS nivel_peligro, COUNT(i.ID_Incidente) AS total " +
+            "FROM Distrito d " +
+            "JOIN Incidente i ON d.ID_Distrito = i.distrito.ID_Distrito " +
+            "JOIN Nivel_Peligro n ON i.nivelPeligro.ID_nivel = n.ID_nivel " +
             "WHERE n.nivel = 3 " +
-            "GROUP BY d.nombre, n.nivel " +
-            "ORDER BY total DESC",
-            nativeQuery = true)
+            "GROUP BY d.Nombre, n.nivel " +
+            "ORDER BY total DESC")
     List<Object[]> contarIncidentesPorNivel();
 }

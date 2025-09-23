@@ -11,9 +11,9 @@ import java.util.List;
 
 @Repository
 public interface ITipo_IncidenteRepository extends JpaRepository<Tipo_Incidente,Integer> {
-    @Query("select a.tipo, count(*) as total \n" +
-            "from tipo_incidente a \n" +
-            "where a.tipo = 'tipodesc' \n" +
-            "group by a.tipo;")
-    public List<Tipo_Incidente> cantidadtipoincidente(@Param("tipodesc")  String tipodesc);
+    @Query("select a.Tipo_Tipo_Incidente, count(a.Id_Tipo_Incidente) as total \n" +
+            "from Tipo_Incidente a \n" +
+            "where a.Tipo_Tipo_Incidente = :tipodesc \n" +
+            "group by a.Tipo_Tipo_Incidente")
+    public List<Object[]> cantidadtipoincidente(@Param("tipodesc")  String tipodesc);
 }

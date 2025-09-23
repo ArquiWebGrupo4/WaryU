@@ -78,7 +78,7 @@ public class Tipo_IncidenteController {
 
     @GetMapping("/Contarxtipo")
     public ResponseEntity<?> contartipo(@RequestParam String tipodesc){
-        List<Tipo_Incidente> tinc = nTI.cantidadtipoincidente(tipodesc);
+        List<Object[]> tinc = nTI.cantidadtipoincidente(tipodesc);
         if (tinc.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No existen dispositivos registros.");
         }

@@ -38,5 +38,5 @@ public class Tipo_IncidenteServiceImplement implements ITipo_IncidenteService {
     }
 
     @Override
-    public List<Tipo_Incidente> cantidadtipoincidente(String tipodesc){ return nTI.cantidadtipoincidente(tipodesc); }
+    public List<Object[]> cantidadtipoincidente(String tipodesc){ return nTI.cantidadtipoincidente(tipodesc); }
 }

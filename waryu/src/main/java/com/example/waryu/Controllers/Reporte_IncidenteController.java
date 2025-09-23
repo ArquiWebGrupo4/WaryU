@@ -95,7 +95,7 @@ public class Reporte_IncidenteController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No existe registros, con el ID: " + id);
         }
         ModelMapper m = new ModelMapper();
-        Reporte_IncidenteDTO  dto = m.map(ri, Reporte_IncidenteDTO.class);
+        Reporte_IncidenteSecDTO  dto = m.map(ri, Reporte_IncidenteSecDTO.class);
         return ResponseEntity.ok(dto);
     }
     @GetMapping("/ReporteByIncidente")
@@ -109,6 +109,6 @@ public class Reporte_IncidenteController {
             ModelMapper m = new ModelMapper();
             return m.map(x, Reporte_IncidenteSecDTO.class);
         }).collect(Collectors.toList());
-        return ResponseEntity.ok(list);
+        return ResponseEntity.ok(dto);
     }
 }

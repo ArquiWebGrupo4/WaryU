@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -39,7 +40,7 @@ public class IBoton_PanicoImplement implements IBoton_PanicoService {
     }
 
     @Override
-    public List<Boton_Panico> Buscarporfechas(LocalDate fechaini, LocalDate fechafin){
+    public List<Boton_Panico> Buscarporfechas(LocalDateTime fechaini, LocalDateTime fechafin){
         return btn_Pan.Buscarporfecha(fechaini,fechafin);
     }
 }

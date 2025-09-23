@@ -11,5 +11,5 @@ public interface ITipo_IncidenteService {
     public void delete(int Id);
     public Tipo_Incidente listId(int Id);
     public void update(Tipo_Incidente tipo);
-    public List<Tipo_Incidente> cantidadtipoincidente(String tipodesc);
+    public List<Object[]> cantidadtipoincidente(String tipodesc);
 }
