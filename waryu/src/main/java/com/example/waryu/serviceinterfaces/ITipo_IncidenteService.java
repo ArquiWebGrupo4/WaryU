@@ -1,0 +1,15 @@
+package com.example.waryu.serviceinterfaces;
+
+
+import com.example.waryu.entities.Tipo_Incidente;
+
+import java.util.List;
+
+public interface ITipo_IncidenteService {
+    public List<Tipo_Incidente> list();
+    public void insert(Tipo_Incidente tipo);
+    public void delete(int Id);
+    public Tipo_Incidente listId(int Id);
+    public void update(Tipo_Incidente tipo);
+    public List<Object[]> cantidadtipoincidente(String tipodesc);
+}
