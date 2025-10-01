@@ -1,6 +1,7 @@
 FROM openjdk:24 AS build
 WORKDIR /app
 COPY . .
+RUN chmod +x mvnw
 RUN ./mvnw -q -DskipTests clean package
 
 FROM openjdk:24
