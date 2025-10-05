@@ -71,7 +71,7 @@ public class Boton_PanicoController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No existe registros, con el ID: " + id);
         }
         ModelMapper m = new ModelMapper();
-        Boton_PanicoDTO dto = m.map(d, Boton_PanicoDTO.class);
+        Boton_PanicoSecDTO dto = m.map(d, Boton_PanicoSecDTO.class);
         return ResponseEntity.ok(dto);
     }
     @GetMapping("/busquedaxfechas")

@@ -80,7 +80,7 @@ public class UsuarioController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No existe registros, con el ID: " + id);
         }
         ModelMapper m = new ModelMapper();
-        UsuarioDTO dto = m.map(u, UsuarioDTO.class);
+        UsuarioSecDTO dto = m.map(u, UsuarioSecDTO.class);
         return ResponseEntity.ok(dto);
     }
     @GetMapping("/uso-boton-de-panico-por-usuario")

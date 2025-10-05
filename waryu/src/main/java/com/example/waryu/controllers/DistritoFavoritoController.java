@@ -71,7 +71,7 @@ public class DistritoFavoritoController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No existe registros, con el ID: " + id);
         }
         ModelMapper m = new ModelMapper();
-        DistritoFavoritoDTO dto = m.map(d, DistritoFavoritoDTO.class);
+        DistritoFavoritoSecDTO dto = m.map(d, DistritoFavoritoSecDTO.class);
         return ResponseEntity.ok(dto);
     }
     @GetMapping("/DistritoFavoritosUsuarios")

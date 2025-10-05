@@ -76,7 +76,7 @@ public class IncidenteController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No existe registros, con el ID: " + id);
         }
         ModelMapper m = new ModelMapper();
-        IncidenteDTO dto = m.map(i, IncidenteDTO.class);
+        IncidenteSecDTO dto = m.map(i, IncidenteSecDTO.class);
         return ResponseEntity.ok(dto);
     }
     @GetMapping("/incidentesfechas")

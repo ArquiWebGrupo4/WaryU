@@ -68,7 +68,7 @@ public class BusquedaController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No existe registros, con el ID: " + id);
         }
         ModelMapper m = new ModelMapper();
-        BusquedaDTO dto = m.map(b, BusquedaDTO.class);
+        BusquedaSecDTO dto = m.map(b, BusquedaSecDTO.class);
         return ResponseEntity.ok(dto);
     }
 }
