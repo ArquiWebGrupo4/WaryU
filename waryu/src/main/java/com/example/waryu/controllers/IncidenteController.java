@@ -5,6 +5,7 @@ import com.example.waryu.entities.Incidente;
 import com.example.waryu.serviceinterfaces.IncidenteService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.graphql.GraphQlProperties;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -135,6 +136,21 @@ public class IncidenteController {
             listaDto.add(dto);
         }
         return ResponseEntity.ok(listaDto);
+    }
+    @GetMapping("/contador_IncidentesXDistrito")
+    public ResponseEntity<?> ContarXDistrito() {
+        List<Reporte_IncidentexDistritoDTO>listado = new ArrayList<Reporte_IncidentexDistritoDTO>();
+        List<String[]>filas = iS.contarIncidentePorDistrito();
+        if(filas.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No existen registros");
+        }
+        for(String[] x:filas) {
+            Reporte_IncidentexDistritoDTO dto=new Reporte_IncidentexDistritoDTO();
+            dto.setDistrito(x[0]);
+            dto.setCantidad(Integer.parseInt(x[1]));
+            listado.add(dto);
+        }
+        return ResponseEntity.ok(listado);
     }
 
 

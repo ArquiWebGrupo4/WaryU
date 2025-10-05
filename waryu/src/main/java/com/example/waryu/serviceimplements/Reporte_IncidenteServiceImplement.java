@@ -42,4 +42,9 @@ public class Reporte_IncidenteServiceImplement implements IReporte_IncidenteServ
     public List<Reporte_Incidente> findbyIncidente(int idincidente) {
         return rIR.findbyIncidente(idincidente);
     }
+
+    @Override
+    public List<String[]> ContarPorIncidente() {
+        return rIR.ContarPorIncidente();
+    }
 }

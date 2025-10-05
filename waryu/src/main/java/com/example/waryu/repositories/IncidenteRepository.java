@@ -29,4 +29,10 @@ public interface IncidenteRepository extends JpaRepository<Incidente,Integer> {
             nativeQuery = true)
     public List<String[]> contarIncidentesPorNivel();
 
+    @Query(value="Select np.distrito as Distrito, COUNT(i.id_incidente) as total" +
+            "From distrito np " +
+            "Inner join incidente i on np.id_distrito = i.id_distrito " +
+            "Group by np.distrito", nativeQuery = true)
+    public List<String[]> contarIncidentesPorDistrito();
+
 }
