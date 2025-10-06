@@ -63,4 +63,7 @@ public class IncidenteServiceImplement implements IncidenteService {
         return iR.contarIncidentesPorDistrito();
     }
 
+
+
+
 }

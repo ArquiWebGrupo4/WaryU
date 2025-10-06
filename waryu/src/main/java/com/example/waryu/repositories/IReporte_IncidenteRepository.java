@@ -1,5 +1,6 @@
 package com.example.waryu.repositories;
 
+import com.example.waryu.entities.Incidente;
 import com.example.waryu.entities.Reporte_Incidente;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -14,4 +15,7 @@ public interface IReporte_IncidenteRepository extends JpaRepository<Reporte_Inci
             "From Reporte_Incidente r " +
             "Group by r.id_incidente", nativeQuery = true)
     public List<String[]> ContarPorIncidente();
+
+
+
 }

@@ -20,3 +20,4 @@ public class Reporte_ReportesxIncidenteDTO {
         Cantidad = cantidad;
     }
 }
+

@@ -8,6 +8,7 @@ import com.example.waryu.entities.*;
 import com.example.waryu.serviceinterfaces.IReporte_IncidenteService;
 import com.example.waryu.serviceinterfaces.IUsuarioService;
 import com.example.waryu.serviceinterfaces.IncidenteService;
+import org.apache.coyote.Response;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -112,10 +113,9 @@ public class Reporte_IncidenteController {
         }).collect(Collectors.toList());
         return ResponseEntity.ok(dto);
     }
-
     @GetMapping("/ContarPorTipoIncidente")
     public ResponseEntity<?> contarPorTipoIncidente() {
-        List<Reporte_ReportesxIncidenteDTO>listado = new ArrayList<>();
+        List<Reporte_ReportesxIncidenteDTO>listado = new ArrayList<Reporte_ReportesxIncidenteDTO>();
         List<String[]>filas=rIS.ContarPorIncidente();
         if (filas.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No existen registros");
@@ -129,4 +129,5 @@ public class Reporte_IncidenteController {
         }
         return ResponseEntity.ok(listado);
     }
+
 }
