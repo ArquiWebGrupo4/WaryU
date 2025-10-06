@@ -47,4 +47,5 @@ public class Reporte_IncidenteServiceImplement implements IReporte_IncidenteServ
     public List<String[]> ContarPorIncidente() {
         return rIR.ContarPorIncidente();
     }
+
 }

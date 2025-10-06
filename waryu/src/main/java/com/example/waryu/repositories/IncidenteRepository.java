@@ -35,4 +35,5 @@ public interface IncidenteRepository extends JpaRepository<Incidente,Integer> {
             "Group by np.distrito", nativeQuery = true)
     public List<String[]> contarIncidentesPorDistrito();
 
+
 }

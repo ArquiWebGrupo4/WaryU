@@ -17,4 +17,5 @@ public interface IReporte_IncidenteRepository extends JpaRepository<Reporte_Inci
     public List<String[]> ContarPorIncidente();
 
 
+
 }

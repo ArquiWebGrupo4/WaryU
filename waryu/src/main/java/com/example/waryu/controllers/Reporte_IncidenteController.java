@@ -146,4 +146,5 @@ public class Reporte_IncidenteController {
         }
         return ResponseEntity.ok(listado);
     }
+
 }
