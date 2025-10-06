@@ -2,6 +2,7 @@ package com.example.waryu.controllers;
 
 import com.example.waryu.dtos.Reporte_IncidenteDTO;
 import com.example.waryu.dtos.Reporte_IncidenteSecDTO;
+import com.example.waryu.dtos.Reporte_IncidentexDistritoDTO;
 import com.example.waryu.entities.*;
 import com.example.waryu.serviceinterfaces.IReporte_IncidenteService;
 import com.example.waryu.serviceinterfaces.IUsuarioService;
@@ -13,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -108,5 +110,21 @@ public class Reporte_IncidenteController {
             return m.map(x, Reporte_IncidenteSecDTO.class);
         }).collect(Collectors.toList());
         return ResponseEntity.ok(dto);
+    }
+
+    @GetMapping("/contador_IncidentesXDistrito")
+    public ResponseEntity<?> ContarXDistrito() {
+        List<Reporte_IncidentexDistritoDTO>listado = new ArrayList<Reporte_IncidentexDistritoDTO>();
+        List<String[]>filas = iS.contarIncidentePorDistrito();
+        if(filas.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No existen registros");
+        }
+        for(String[] x:filas) {
+            Reporte_IncidentexDistritoDTO dto=new Reporte_IncidentexDistritoDTO();
+            dto.setDistrito(x[0]);
+            dto.setCantidad(Integer.parseInt(x[1]));
+            listado.add(dto);
+        }
+        return ResponseEntity.ok(listado);
     }
 }

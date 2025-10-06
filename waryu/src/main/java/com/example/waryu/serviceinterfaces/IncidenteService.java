@@ -15,5 +15,6 @@ public interface IncidenteService {
     public List<Incidente> listarendistrito(String distrito);
     public List<String[]> contarIncidentesPorTipo();
     public List<String[]> contarIncidentesPorNivel();
+    public List<String[]> contarIncidentePorDistrito();
 }
 
