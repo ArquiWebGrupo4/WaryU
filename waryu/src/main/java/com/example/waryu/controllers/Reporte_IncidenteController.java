@@ -3,6 +3,7 @@ package com.example.waryu.controllers;
 import com.example.waryu.dtos.Reporte_IncidenteDTO;
 import com.example.waryu.dtos.Reporte_IncidenteSecDTO;
 import com.example.waryu.dtos.Reporte_IncidentexDistritoDTO;
+import com.example.waryu.dtos.Reporte_ReportesxIncidenteDTO;
 import com.example.waryu.entities.*;
 import com.example.waryu.serviceinterfaces.IReporte_IncidenteService;
 import com.example.waryu.serviceinterfaces.IUsuarioService;
@@ -112,16 +113,17 @@ public class Reporte_IncidenteController {
         return ResponseEntity.ok(dto);
     }
 
-    @GetMapping("/contador_IncidentesXDistrito")
-    public ResponseEntity<?> ContarXDistrito() {
-        List<Reporte_IncidentexDistritoDTO>listado = new ArrayList<Reporte_IncidentexDistritoDTO>();
-        List<String[]>filas = iS.contarIncidentePorDistrito();
-        if(filas.isEmpty()) {
+    @GetMapping("/ContarPorTipoIncidente")
+    public ResponseEntity<?> contarPorTipoIncidente() {
+        List<Reporte_ReportesxIncidenteDTO>listado = new ArrayList<Reporte_ReportesxIncidenteDTO>();
+        List<String[]>filas=rIS.ContarPorIncidente();
+        if (filas.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No existen registros");
+
         }
         for(String[] x:filas) {
-            Reporte_IncidentexDistritoDTO dto=new Reporte_IncidentexDistritoDTO();
-            dto.setDistrito(x[0]);
+            Reporte_ReportesxIncidenteDTO dto=new Reporte_ReportesxIncidenteDTO();
+            dto.setIncidente(x[0]);
             dto.setCantidad(Integer.parseInt(x[1]));
             listado.add(dto);
         }
