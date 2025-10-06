@@ -115,7 +115,7 @@ public class Reporte_IncidenteController {
 
     @GetMapping("/ContarPorTipoIncidente")
     public ResponseEntity<?> contarPorTipoIncidente() {
-        List<Reporte_ReportesxIncidenteDTO>listado = new ArrayList<Reporte_ReportesxIncidenteDTO>();
+        List<Reporte_ReportesxIncidenteDTO>listado = new ArrayList<>();
         List<String[]>filas=rIS.ContarPorIncidente();
         if (filas.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No existen registros");
