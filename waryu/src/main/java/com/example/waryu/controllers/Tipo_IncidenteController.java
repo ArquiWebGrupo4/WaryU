@@ -1,5 +1,6 @@
 package com.example.waryu.controllers;
 
+import com.example.waryu.dtos.Reporte_CantidadxTipoIncidenteDTO;
 import com.example.waryu.dtos.Tipo_IncidenteDTO;
 import com.example.waryu.entities.Tipo_Incidente;
 import com.example.waryu.serviceinterfaces.ITipo_IncidenteService;
@@ -79,9 +80,11 @@ public class Tipo_IncidenteController {
         if (tinc.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No existen dispositivos registros.");
         }
-        List<Tipo_IncidenteDTO> listDTO = tinc.stream().map(x->{
-            ModelMapper m = new ModelMapper();
-            return m.map(x, Tipo_IncidenteDTO.class);
+        List<Reporte_CantidadxTipoIncidenteDTO> listDTO = tinc.stream().map(x->{
+            String tipo = x[0].toString();
+            int  cantidad = Integer.parseInt(x[1].toString());
+
+            return new Reporte_CantidadxTipoIncidenteDTO(tipo,cantidad);
         }).collect(Collectors.toList());
         return ResponseEntity.ok(listDTO);
 

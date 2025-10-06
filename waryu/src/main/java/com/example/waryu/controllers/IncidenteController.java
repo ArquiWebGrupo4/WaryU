@@ -139,18 +139,19 @@ public class IncidenteController {
     }
     @GetMapping("/contador_IncidentesXDistrito")
     public ResponseEntity<?> ContarXDistrito() {
-        List<Reporte_IncidentexDistritoDTO>listado = new ArrayList<Reporte_IncidentexDistritoDTO>();
-        List<String[]>filas = iS.contarIncidentePorDistrito();
-        if(filas.isEmpty()) {
+        List<Reporte_IncidentexDistritoDTO>listaDTO = new ArrayList<Reporte_IncidentexDistritoDTO>();
+        List<String[]>fila = iS.contarIncidentePorDistrito();
+        if(fila.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No existen registros");
         }
-        for(String[] x:filas) {
+        for(String[] x:fila) {
             Reporte_IncidentexDistritoDTO dto=new Reporte_IncidentexDistritoDTO();
             dto.setDistrito(x[0]);
-            dto.setCantidad(Integer.parseInt(x[1]));
-            listado.add(dto);
+            dto.setNombre(x[1]);
+            dto.setCantidad(Integer.parseInt(x[2]));
+            listaDTO.add(dto);
         }
-        return ResponseEntity.ok(listado);
+        return ResponseEntity.ok(listaDTO);
     }
 
 
