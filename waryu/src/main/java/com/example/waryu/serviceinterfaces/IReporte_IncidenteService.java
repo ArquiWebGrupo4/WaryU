@@ -11,4 +11,5 @@ public interface IReporte_IncidenteService {
     public Reporte_Incidente findID(int id);
     public void update(Reporte_Incidente reporte);
     public List<Reporte_Incidente> findbyIncidente(int idincidente);
+    public List<String[]> ContarPorIncidente();
 }

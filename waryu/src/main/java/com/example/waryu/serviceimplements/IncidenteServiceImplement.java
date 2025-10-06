@@ -58,6 +58,9 @@ public class IncidenteServiceImplement implements IncidenteService {
         return iR.contarIncidentesPorNivel();
     }
 
-
+    @Override
+    public List<String[]> contarIncidentePorDistrito() {
+        return iR.contarIncidentesPorDistrito();
+    }
 
 }
