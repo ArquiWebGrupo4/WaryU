@@ -37,6 +37,7 @@ public class DistritoController {
         return ResponseEntity.ok(lista);
     }
     @PostMapping
+    @PreAuthorize("hasAnyAuthority('PADRE', 'ESTUDIANTE', 'ADMIN')")
     public ResponseEntity<String> registrar(@RequestBody DistritoDTO dto) {
         ModelMapper m = new ModelMapper();
         Distrito d = m.map(dto, Distrito.class);
@@ -45,6 +46,7 @@ public class DistritoController {
                 .body("Distrito registrado correctamente.");
     }
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAnyAuthority('PADRE', 'ESTUDIANTE', 'ADMIN')")
     public ResponseEntity<String> delete(@PathVariable("id") Integer id) {
         Distrito np = dS.listId(id);
         if (np == null) {
@@ -54,6 +56,7 @@ public class DistritoController {
         return ResponseEntity.ok("Distrito con ID " + id + " eliminado");
     }
     @PutMapping
+    @PreAuthorize("hasAnyAuthority('PADRE', 'ESTUDIANTE', 'ADMIN')")
     public ResponseEntity<String> actualizar(@RequestBody DistritoDTO dto) {
         ModelMapper m = new ModelMapper();
         Distrito d = m.map(dto, Distrito.class);
@@ -66,6 +69,7 @@ public class DistritoController {
         return ResponseEntity.ok("Distrito modificado correctamente.");
     }
     @GetMapping("/{id}")
+    @PreAuthorize("hasAnyAuthority('PADRE', 'ESTUDIANTE', 'ADMIN')")
     public ResponseEntity<?> findID(@PathVariable("id") Integer id) {
         Distrito d = dS.listId(id);
         if (d == null) {
@@ -76,6 +80,7 @@ public class DistritoController {
         return ResponseEntity.ok(dto);
     }
     @GetMapping("/Distritos-con-incidentes-peligrosos")
+    @PreAuthorize("hasAnyAuthority('PADRE', 'ESTUDIANTE', 'ADMIN')")
     public ResponseEntity<?> getIncidentesPeligrososPorDistrito() {
         List<Object[]> results = dS.DistritoPeligroso();
         List<DistritoPeligrosoDTO> listaDto = new ArrayList<>();

@@ -36,6 +36,7 @@ public class Boton_PanicoController {
         return ResponseEntity.ok(lista);
     }
     @PostMapping
+    @PreAuthorize("hasAnyAuthority('PADRE', 'ESTUDIANTE', 'ADMIN')")
     public ResponseEntity<String> registrar(@RequestBody Boton_PanicoDTO dto){
         ModelMapper mapper = new ModelMapper();
         Boton_Panico d = mapper.map(dto, Boton_Panico.class);
@@ -43,6 +44,7 @@ public class Boton_PanicoController {
         return ResponseEntity.status(HttpStatus.CREATED).body("Boton de panico accionado registrado");
     }
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAnyAuthority('PADRE', 'ESTUDIANTE', 'ADMIN')")
     public ResponseEntity<String> delete(@PathVariable("id") Integer id) {
         Boton_Panico d = btn_pan.listId(id);
         if (d == null) {
@@ -53,6 +55,7 @@ public class Boton_PanicoController {
     }
 
     @PutMapping
+    @PreAuthorize("hasAnyAuthority('PADRE', 'ESTUDIANTE', 'ADMIN')")
     public ResponseEntity<String> actualizar(@RequestBody Boton_PanicoDTO dto) {
         ModelMapper m = new ModelMapper();
         Boton_Panico b = m.map(dto, Boton_Panico.class);
@@ -65,6 +68,7 @@ public class Boton_PanicoController {
         return ResponseEntity.ok("Boton de panico modificado correctamente.");
     }
     @GetMapping("/{id}")
+    @PreAuthorize("hasAnyAuthority('PADRE', 'ESTUDIANTE', 'ADMIN')")
     public ResponseEntity<?> findID(@PathVariable("id") Integer id) {
         Boton_Panico d = btn_pan.listId(id);
         if (d == null) {
@@ -75,6 +79,7 @@ public class Boton_PanicoController {
         return ResponseEntity.ok(dto);
     }
     @GetMapping("/busquedaxfechas")
+    @PreAuthorize("hasAnyAuthority('PADRE', 'ESTUDIANTE', 'ADMIN')")
     public ResponseEntity<?>Buscarporfecha(@RequestParam LocalDateTime fechaini, @RequestParam LocalDateTime fechafin){
         List<Boton_Panico> btns = btn_pan.Buscarporfechas(fechaini,fechafin);
         if(btns.isEmpty()){

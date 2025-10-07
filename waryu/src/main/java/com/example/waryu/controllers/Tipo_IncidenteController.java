@@ -33,6 +33,7 @@ public class Tipo_IncidenteController {
         return ResponseEntity.ok(list);
     }
     @PostMapping
+    @PreAuthorize("hasAnyAuthority('PADRE', 'ESTUDIANTE', 'ADMIN')")
     public ResponseEntity<String> registrar(@RequestBody Tipo_IncidenteDTO dto) {
         ModelMapper m = new ModelMapper();
         Tipo_Incidente d = m.map(dto, Tipo_Incidente.class);
@@ -41,6 +42,7 @@ public class Tipo_IncidenteController {
                 .body("Tipo de incidente registrado correctamente.");
     }
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAnyAuthority('PADRE', 'ESTUDIANTE', 'ADMIN')")
     public ResponseEntity<String> delete(@PathVariable("id") Integer id) {
         Tipo_Incidente np = nTI.listId(id);
         if(np == null){
@@ -50,6 +52,7 @@ public class Tipo_IncidenteController {
         return ResponseEntity.ok("Registro con ID " + id + "eliminado");
     }
     @PutMapping
+    @PreAuthorize("hasAnyAuthority('PADRE', 'ESTUDIANTE', 'ADMIN')")
     public ResponseEntity<String> actualizar(@RequestBody Tipo_IncidenteDTO dto) {
         ModelMapper m = new ModelMapper();
         Tipo_Incidente d = m.map(dto, Tipo_Incidente.class);
@@ -63,6 +66,7 @@ public class Tipo_IncidenteController {
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasAnyAuthority('PADRE', 'ESTUDIANTE', 'ADMIN')")
     public ResponseEntity<?> findID(@PathVariable("id") Integer id) {
         Tipo_Incidente ti = nTI.listId(id);
         if (ti == null) {

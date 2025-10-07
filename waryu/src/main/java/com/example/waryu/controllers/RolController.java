@@ -35,6 +35,7 @@ public class RolController {
     }
 
     @PostMapping
+    @PreAuthorize("hasAnyAuthority('PADRE', 'ESTUDIANTE', 'ADMIN')")
     public ResponseEntity<String> registrar(@RequestBody RolDTO dto) {
         ModelMapper m = new ModelMapper();
         Rol d = m.map(dto, Rol.class);
@@ -44,6 +45,7 @@ public class RolController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAnyAuthority('PADRE', 'ESTUDIANTE', 'ADMIN')")
     public ResponseEntity<String> eliminar(@PathVariable("id") int id) {
         Rol rol = rS.findID(id);
         if (rol == null) {
@@ -54,6 +56,7 @@ public class RolController {
         return ResponseEntity.ok("Rol con ID " + id + " eliminado correctamente.");
     }
     @PutMapping
+    @PreAuthorize("hasAnyAuthority('PADRE', 'ESTUDIANTE', 'ADMIN')")
     public ResponseEntity<String> actualizar(@RequestBody RolDTO dto) {
         ModelMapper m = new ModelMapper();
         Rol d = m.map(dto, Rol.class);
@@ -67,6 +70,7 @@ public class RolController {
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasAnyAuthority('PADRE', 'ESTUDIANTE', 'ADMIN')")
     public ResponseEntity<?> findID(@PathVariable("id") Integer id) {
         Rol r = rS.findID(id);
         if (r == null) {
