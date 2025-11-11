@@ -12,4 +12,6 @@ public interface IBoton_PanicoService {
     public Boton_Panico listId(int id);
     public void update(Boton_Panico panico);
     public List<Boton_Panico> Buscarporfechas(LocalDateTime fechaini, LocalDateTime fechafin);
+    public void interact(String nombre, double latitud, double longitud);
+    public void test();
 }

@@ -78,18 +78,31 @@ public class Boton_PanicoController {
         Boton_PanicoSecDTO dto = m.map(d, Boton_PanicoSecDTO.class);
         return ResponseEntity.ok(dto);
     }
-    @GetMapping("/busquedaxfechas")
+    @PostMapping("/interact")
     @PreAuthorize("hasAnyAuthority('PADRE', 'ESTUDIANTE', 'ADMIN')")
-    public ResponseEntity<?>Buscarporfecha(@RequestParam LocalDateTime fechaini, @RequestParam LocalDateTime fechafin){
-        List<Boton_Panico> btns = btn_pan.Buscarporfechas(fechaini,fechafin);
-        if(btns.isEmpty()){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No existen registros en el intervalo de fechas solicitadas");
+    public ResponseEntity<?> enviarAlerta(
+            @RequestParam String nombre,
+            @RequestParam double latitud,
+            @RequestParam double longitud) {
+
+        try {
+            btn_pan.interact(nombre, latitud, longitud);
+            return ResponseEntity.ok("Mensaje enviado correctamente");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Error al enviar el mensaje: " + e.getMessage());
         }
-        List<Boton_PanicoSecDTO> listDTO = btns.stream().map(x->{
-            ModelMapper mapper = new ModelMapper();
-            return mapper.map(x, Boton_PanicoSecDTO.class);
-        }).collect(Collectors.toList());
-        return ResponseEntity.ok(listDTO);
+    }
+    @PostMapping("/test")
+    @PreAuthorize("hasAnyAuthority('PADRE', 'ESTUDIANTE', 'ADMIN')")
+    public ResponseEntity<?> testHelloWorld() {
+        try {
+            btn_pan.test();
+            return ResponseEntity.ok("Mensaje hello_world enviado correctamente");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Error al enviar el mensaje: " + e.getMessage());
+        }
     }
 
 }
