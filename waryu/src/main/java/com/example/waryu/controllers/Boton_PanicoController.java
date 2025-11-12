@@ -88,6 +88,7 @@ public class Boton_PanicoController {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No existe registros, con ID: " + idUsuario);
             }
             Boton_Panico b = new Boton_Panico();
+            b.setID_Boton_Panico(0);
             b.setUsuario(U);
             b.setFecha_Activacion(LocalDateTime.now());
             b.setLat(coords[0]);
