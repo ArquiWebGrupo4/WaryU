@@ -3,7 +3,9 @@ package com.example.waryu.controllers;
 import com.example.waryu.dtos.Boton_PanicoDTO;
 import com.example.waryu.dtos.Boton_PanicoSecDTO;
 import com.example.waryu.entities.Boton_Panico;
+import com.example.waryu.entities.Usuario;
 import com.example.waryu.serviceinterfaces.IBoton_PanicoService;
+import com.example.waryu.serviceinterfaces.IUsuarioService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,7 +23,8 @@ import java.util.stream.Collectors;
 public class Boton_PanicoController {
     @Autowired
     private IBoton_PanicoService btn_pan;
-
+    @Autowired
+    private IUsuarioService uS;
     @GetMapping
 
     public ResponseEntity<?> listarBoton_Panico()
@@ -80,6 +83,16 @@ public class Boton_PanicoController {
         try {
 
             double[] coords = {java.util.concurrent.ThreadLocalRandom.current().nextDouble(-90.0, 90.0), java.util.concurrent.ThreadLocalRandom.current().nextDouble(-180.0, 180.0)};
+            Usuario U = uS.findID(Integer.parseInt(idUsuario));
+            if(U == null){
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No existe registros, con ID: " + idUsuario);
+            }
+            Boton_Panico b = new Boton_Panico();
+            b.setUsuario(U);
+            b.setFecha_Activacion(LocalDateTime.now());
+            b.setLat(coords[0]);
+            b.setLon(coords[1]);
+            btn_pan.insert(b);
             btn_pan.interact(idUsuario, coords[0], coords[1]);
             return ResponseEntity.ok("Mensaje enviado correctamente");
         } catch (Exception e) {
