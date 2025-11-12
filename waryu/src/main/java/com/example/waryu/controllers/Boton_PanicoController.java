@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.Console;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -77,6 +78,7 @@ public class Boton_PanicoController {
     public ResponseEntity<?> enviarAlerta(
             @RequestParam String idUsuario) {
         try {
+
             double[] coords = {java.util.concurrent.ThreadLocalRandom.current().nextDouble(-90.0, 90.0), java.util.concurrent.ThreadLocalRandom.current().nextDouble(-180.0, 180.0)};
             btn_pan.interact(idUsuario, coords[0], coords[1]);
             return ResponseEntity.ok("Mensaje enviado correctamente");
