@@ -22,7 +22,6 @@ public class Boton_PanicoController {
     private IBoton_PanicoService btn_pan;
 
     @GetMapping
-    @PreAuthorize("hasAnyAuthority('PADRE', 'ESTUDIANTE', 'ADMIN')")
 
     public ResponseEntity<?> listarBoton_Panico()
     {
@@ -36,7 +35,6 @@ public class Boton_PanicoController {
         return ResponseEntity.ok(lista);
     }
     @PostMapping
-    @PreAuthorize("hasAnyAuthority('PADRE', 'ESTUDIANTE', 'ADMIN')")
     public ResponseEntity<String> registrar(@RequestBody Boton_PanicoDTO dto){
         ModelMapper mapper = new ModelMapper();
         Boton_Panico d = mapper.map(dto, Boton_Panico.class);
@@ -44,7 +42,6 @@ public class Boton_PanicoController {
         return ResponseEntity.status(HttpStatus.CREATED).body("Boton de panico accionado registrado");
     }
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasAnyAuthority('PADRE', 'ESTUDIANTE', 'ADMIN')")
     public ResponseEntity<String> delete(@PathVariable("id") Integer id) {
         Boton_Panico d = btn_pan.listId(id);
         if (d == null) {
@@ -55,7 +52,6 @@ public class Boton_PanicoController {
     }
 
     @PutMapping
-    @PreAuthorize("hasAnyAuthority('PADRE', 'ESTUDIANTE', 'ADMIN')")
     public ResponseEntity<String> actualizar(@RequestBody Boton_PanicoDTO dto) {
         ModelMapper m = new ModelMapper();
         Boton_Panico b = m.map(dto, Boton_Panico.class);
@@ -68,7 +64,6 @@ public class Boton_PanicoController {
         return ResponseEntity.ok("Boton de panico modificado correctamente.");
     }
     @GetMapping("/{id}")
-    @PreAuthorize("hasAnyAuthority('PADRE', 'ESTUDIANTE', 'ADMIN')")
     public ResponseEntity<?> findID(@PathVariable("id") Integer id) {
         Boton_Panico d = btn_pan.listId(id);
         if (d == null) {
@@ -79,14 +74,11 @@ public class Boton_PanicoController {
         return ResponseEntity.ok(dto);
     }
     @PostMapping("/interact")
-    @PreAuthorize("hasAnyAuthority('PADRE', 'ESTUDIANTE', 'ADMIN')")
     public ResponseEntity<?> enviarAlerta(
-            @RequestParam String nombre,
-            @RequestParam double latitud,
-            @RequestParam double longitud) {
-
+            @RequestParam String idUsuario) {
         try {
-            btn_pan.interact(nombre, latitud, longitud);
+            double[] coords = {java.util.concurrent.ThreadLocalRandom.current().nextDouble(-90.0, 90.0), java.util.concurrent.ThreadLocalRandom.current().nextDouble(-180.0, 180.0)};
+            btn_pan.interact(idUsuario, coords[0], coords[1]);
             return ResponseEntity.ok("Mensaje enviado correctamente");
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
@@ -94,7 +86,6 @@ public class Boton_PanicoController {
         }
     }
     @PostMapping("/test")
-    @PreAuthorize("hasAnyAuthority('PADRE', 'ESTUDIANTE', 'ADMIN')")
     public ResponseEntity<?> testHelloWorld() {
         try {
             btn_pan.test();
