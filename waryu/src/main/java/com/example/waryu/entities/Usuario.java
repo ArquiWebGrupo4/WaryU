@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 @Entity
 @Table(name = "Usuario")
 public class Usuario implements Serializable {
@@ -19,7 +21,7 @@ public class Usuario implements Serializable {
     @Column(name = "contrasenahash", nullable = false, length = 64)
     private String contrasenahash;
     @Column(name = "Fecha_Registro", nullable = false)
-    private LocalDate Fecha_Registro;
+    private LocalDateTime Fecha_Registro;
     @Column(name = "Telefono", nullable = false, length = 15)
     private String Telefono;
     @Column(name = "Telefono_Panico", nullable = false, length = 15)
@@ -33,7 +35,7 @@ public class Usuario implements Serializable {
 
     public Usuario() {}
 
-    public Usuario(int ID_Usuario, String nombreusuario, String nombreCompleto, String email, String contrasenahash, LocalDate fecha_Registro, String telefono, String telefono_Panico, String mensaje, Rol rol) {
+    public Usuario(int ID_Usuario, String nombreusuario, String nombreCompleto, String email, String contrasenahash, LocalDateTime fecha_Registro, String telefono, String telefono_Panico, String mensaje, Rol rol) {
         this.ID_Usuario = ID_Usuario;
         this.nombreusuario = nombreusuario;
         NombreCompleto = nombreCompleto;
@@ -86,11 +88,11 @@ public class Usuario implements Serializable {
         this.contrasenahash = contrasenahash;
     }
 
-    public LocalDate getFecha_Registro() {
+    public LocalDateTime getFecha_Registro() {
         return Fecha_Registro;
     }
 
-    public void setFecha_Registro(LocalDate fecha_Registro) {
+    public void setFecha_Registro(LocalDateTime fecha_Registro) {
         Fecha_Registro = fecha_Registro;
     }
 

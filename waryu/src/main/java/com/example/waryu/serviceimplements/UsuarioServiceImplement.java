@@ -25,7 +25,11 @@ public class UsuarioServiceImplement implements IUsuarioService {
     @Override
     public void insert(Usuario usuario) {
         String hash = pE.encode(usuario.getContrasenahash());
+        String num = "51" + usuario.getTelefono();
+        String numpa = "51" + usuario.getTelefono();
         usuario.setContrasenahash(hash);
+        usuario.setTelefono(num);
+        usuario.setTelefono_Panico(numpa);
         uR.save(usuario);
     }
 

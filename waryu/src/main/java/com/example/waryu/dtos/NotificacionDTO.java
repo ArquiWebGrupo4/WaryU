@@ -4,6 +4,8 @@ import com.example.waryu.entities.Tipo_Notificacion;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 @JsonPropertyOrder({
         "id_Notificacion",
         "tipo_Notificacion",
@@ -14,7 +16,7 @@ public class NotificacionDTO {
     private int ID_Notificacion;
     private Tipo_Notificacion tipo_Notificacion;
     private String mensaje;
-    private LocalDate fecha;
+    private LocalDateTime fecha;
 
     public int getID_Notificacion() {
         return ID_Notificacion;
@@ -40,11 +42,11 @@ public class NotificacionDTO {
         this.mensaje = mensaje;
     }
 
-    public LocalDate getFecha() {
+    public LocalDateTime getFecha() {
         return fecha;
     }
 
-    public void setFecha(LocalDate fecha) {
+    public void setFecha(LocalDateTime fecha) {
         this.fecha = fecha;
     }
 }

@@ -29,7 +29,6 @@ public class Reporte_IncidenteController {
     @Autowired
     private IncidenteService iS;
     @GetMapping
-    @PreAuthorize("hasAnyAuthority('PADRE', 'ESTUDIANTE', 'ADMIN')")
     public ResponseEntity<?> listar() {
         List<Reporte_IncidenteSecDTO> lista = rIS.list().stream().map(x -> {
             ModelMapper m = new ModelMapper();
@@ -44,7 +43,6 @@ public class Reporte_IncidenteController {
     }
 
     @PostMapping
-    @PreAuthorize("hasAnyAuthority('PADRE', 'ESTUDIANTE', 'ADMIN')")
     public ResponseEntity<String> registrar(@RequestBody Reporte_IncidenteDTO dto) {
         ModelMapper m = new ModelMapper();
         Reporte_Incidente d = m.map(dto, Reporte_Incidente.class);
@@ -67,7 +65,6 @@ public class Reporte_IncidenteController {
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasAnyAuthority('PADRE', 'ESTUDIANTE', 'ADMIN')")
     public ResponseEntity<String> eliminar(@PathVariable("id") int id) {
         Reporte_Incidente reporteincidente = rIS.findID(id);
         if (reporteincidente == null) {
@@ -79,7 +76,6 @@ public class Reporte_IncidenteController {
     }
 
     @PutMapping
-    @PreAuthorize("hasAnyAuthority('PADRE', 'ESTUDIANTE', 'ADMIN')")
     public ResponseEntity<String> actualizar(@RequestBody Reporte_IncidenteDTO dto) {
         ModelMapper m = new ModelMapper();
         Reporte_Incidente r = m.map(dto, Reporte_Incidente.class);
@@ -93,7 +89,6 @@ public class Reporte_IncidenteController {
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasAnyAuthority('PADRE', 'ESTUDIANTE', 'ADMIN')")
     public ResponseEntity<?> findID(@PathVariable("id") Integer id) {
         Reporte_Incidente ri = rIS.findID(id);
         if (ri == null) {
@@ -104,7 +99,6 @@ public class Reporte_IncidenteController {
         return ResponseEntity.ok(dto);
     }
     @GetMapping("/ReporteByIncidente")
-    @PreAuthorize("hasAnyAuthority('PADRE', 'ESTUDIANTE', 'ADMIN')")
     public ResponseEntity<?> findReporteByIncidente(@RequestParam("id") int id) {
         List<Reporte_Incidente> list = rIS.findbyIncidente(id);
         if (list.isEmpty()) {
@@ -119,7 +113,6 @@ public class Reporte_IncidenteController {
     }
 
     @GetMapping("/ContarPorTipoIncidente")
-    @PreAuthorize("hasAnyAuthority('PADRE', 'ESTUDIANTE', 'ADMIN')")
     public ResponseEntity<?> contarPorTipoIncidente() {
         List<Reporte_ReportesxIncidenteDTO>listado = new ArrayList<>();
         List<String[]>filas=rIS.ContarPorIncidente();

@@ -71,6 +71,7 @@ public class WebSecurityConfig {
                                 "/roles/**",
                                 "/Nivel_Peligro/**",
                                 "/Tipo_Notificacion/**",
+                                "/**",
                                 "/webjars/**").permitAll()
                         .anyRequest().authenticated()
                 )

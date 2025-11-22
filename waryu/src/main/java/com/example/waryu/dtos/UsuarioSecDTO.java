@@ -4,6 +4,8 @@ import com.example.waryu.entities.Rol;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 @JsonPropertyOrder({
         "id_Usuario",
         "rol",
@@ -15,7 +17,7 @@ public class UsuarioSecDTO {
     private int ID_Usuario;
     private String NombreUsuario;
     private String NombreCompleto;
-    private LocalDate Fecha_Registro;
+    private LocalDateTime Fecha_Registro;
     private Rol rol;
 
     public int getID_Usuario() {
@@ -42,11 +44,11 @@ public class UsuarioSecDTO {
         NombreCompleto = nombreCompleto;
     }
 
-    public LocalDate getFecha_Registro() {
+    public LocalDateTime getFecha_Registro() {
         return Fecha_Registro;
     }
 
-    public void setFecha_Registro(LocalDate fecha_Registro) {
+    public void setFecha_Registro(LocalDateTime fecha_Registro) {
         Fecha_Registro = fecha_Registro;
     }
 

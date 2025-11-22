@@ -22,7 +22,6 @@ public class IncidenteController {
     private IncidenteService iS;
 
     @GetMapping
-    @PreAuthorize("hasAnyAuthority('PADRE', 'ESTUDIANTE', 'ADMIN')")
     public ResponseEntity<?> listar() {
         List<IncidenteSecDTO> lista = iS.list().stream().map(x -> {
             ModelMapper m = new ModelMapper();
@@ -37,7 +36,6 @@ public class IncidenteController {
     }
 
     @PostMapping
-    @PreAuthorize("hasAnyAuthority('PADRE', 'ESTUDIANTE', 'ADMIN')")
     public ResponseEntity<String> registrar(@RequestBody IncidenteDTO dto) {
         ModelMapper m = new ModelMapper();
         Incidente d = m.map(dto, Incidente.class);
@@ -47,7 +45,6 @@ public class IncidenteController {
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasAnyAuthority('PADRE', 'ESTUDIANTE', 'ADMIN')")
     public ResponseEntity<String> eliminar(@PathVariable("id") Integer id) {
         Incidente incidente = iS.findID(id);
         if (incidente == null) {
@@ -59,7 +56,6 @@ public class IncidenteController {
     }
 
     @PutMapping
-    @PreAuthorize("hasAnyAuthority('PADRE', 'ESTUDIANTE', 'ADMIN')")
     public ResponseEntity<String> actualizar(@RequestBody IncidenteDTO dto) {
         ModelMapper m = new ModelMapper();
         Incidente i = m.map(dto, Incidente.class);
@@ -73,7 +69,6 @@ public class IncidenteController {
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasAnyAuthority('PADRE', 'ESTUDIANTE', 'ADMIN')")
     public ResponseEntity<?> findID(@PathVariable("id") Integer id) {
         Incidente i = iS.findID(id);
         if (i == null) {
@@ -83,8 +78,17 @@ public class IncidenteController {
         IncidenteSecDTO dto = m.map(i, IncidenteSecDTO.class);
         return ResponseEntity.ok(dto);
     }
+    @GetMapping("/{id}/todo")
+    public ResponseEntity<?> findIDTodo(@PathVariable("id") Integer id) {
+        Incidente i = iS.findID(id);
+        if (i == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No existe registros, con el ID: " + id);
+        }
+        ModelMapper m = new ModelMapper();
+        IncidenteDTO dto = m.map(i, IncidenteDTO.class);
+        return ResponseEntity.ok(dto);
+    }
     @GetMapping("/incidentesfechas")
-    @PreAuthorize("hasAnyAuthority('PADRE', 'ESTUDIANTE', 'ADMIN')")
     public ResponseEntity<?> listarenfechas(@RequestParam("fecha1") LocalDateTime fecha1, @RequestParam("fecha2") LocalDateTime fecha2) {
         List<Incidente> i = iS.listarenfechas(fecha1, fecha2);
         if (i.isEmpty()) {
@@ -98,7 +102,6 @@ public class IncidenteController {
         return ResponseEntity.ok(lista);
     }
     @GetMapping("/incidentesdistrito")
-    @PreAuthorize("hasAnyAuthority('PADRE', 'ESTUDIANTE', 'ADMIN')")
     public ResponseEntity<?> listarendistritos(@RequestParam("distrito") String distrito) {
         List<Incidente> i = iS.listarendistrito(distrito);
         if (i.isEmpty()) {
@@ -111,7 +114,6 @@ public class IncidenteController {
         return ResponseEntity.ok(dto);
     }
     @GetMapping("/contador_IncidentesXTipo")
-    @PreAuthorize("hasAnyAuthority('PADRE', 'ESTUDIANTE', 'ADMIN')")
     public ResponseEntity<?> ContarXTipo() {
         List<Conteo_IncidenteXTipoDTO>listaDto=new ArrayList<Conteo_IncidenteXTipoDTO>();
         List<String[]>fila=iS.contarIncidentesPorTipo();
@@ -128,7 +130,6 @@ public class IncidenteController {
         return ResponseEntity.ok(listaDto);
     }
     @GetMapping("/contador_IncidentesXNivel")
-    @PreAuthorize("hasAnyAuthority('PADRE', 'ESTUDIANTE', 'ADMIN')")
     public ResponseEntity<?> ContarXNivel() {
         List<Conteo_IncidenteXNivelDTO>listaDto=new ArrayList<Conteo_IncidenteXNivelDTO>();
         List<String[]>fila=iS.contarIncidentesPorNivel();

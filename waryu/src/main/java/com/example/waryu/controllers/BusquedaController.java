@@ -20,7 +20,6 @@ public class BusquedaController {
     private BusquedaService bS;
 
     @GetMapping
-    @PreAuthorize("hasAnyAuthority('PADRE', 'ESTUDIANTE', 'ADMIN')")
     public ResponseEntity<?> listar() {
         List<BusquedaSecDTO> lista = bS.list().stream().map(x -> {
             ModelMapper m = new ModelMapper();
@@ -33,7 +32,6 @@ public class BusquedaController {
         return ResponseEntity.ok(lista);
     }
     @PostMapping
-    @PreAuthorize("hasAnyAuthority('PADRE', 'ESTUDIANTE', 'ADMIN')")
     public ResponseEntity<String> registrar(@RequestBody BusquedaDTO dto) {
         ModelMapper m = new ModelMapper();
         Busqueda d = m.map(dto, Busqueda.class);
@@ -42,7 +40,6 @@ public class BusquedaController {
                 .body("Busqueda ingresada corractamente");
     }
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasAnyAuthority('PADRE', 'ESTUDIANTE', 'ADMIN')")
     public ResponseEntity<String> delete(@PathVariable("id") Integer id) {
         Busqueda np = bS.listId(id);
         if (np == null) {
@@ -52,7 +49,6 @@ public class BusquedaController {
         return ResponseEntity.ok("Busqueda con ID " + id + " eliminado");
     }
     @PutMapping
-    @PreAuthorize("hasAnyAuthority('PADRE', 'ESTUDIANTE', 'ADMIN')")
     public ResponseEntity<String> actualizar(@RequestBody BusquedaDTO dto) {
         ModelMapper m = new ModelMapper();
         Busqueda d = m.map(dto, Busqueda.class);
@@ -65,7 +61,6 @@ public class BusquedaController {
         return ResponseEntity.ok("Busqueda modificado correctamente.");
     }
     @GetMapping("/{id}")
-    @PreAuthorize("hasAnyAuthority('PADRE', 'ESTUDIANTE', 'ADMIN')")
     public ResponseEntity<?> findID(@PathVariable("id") Integer id) {
         Busqueda b = bS.listId(id);
         if (b == null) {

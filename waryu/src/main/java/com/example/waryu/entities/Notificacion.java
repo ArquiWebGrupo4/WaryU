@@ -4,6 +4,7 @@ package com.example.waryu.entities;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "Notificacion")
@@ -20,11 +21,11 @@ public class Notificacion {
     private String Mensaje;
 
     @Column(name= "Fecha", nullable = false)
-    private LocalDate Fecha;
+    private LocalDateTime Fecha;
 
     public Notificacion() {}
 
-    public Notificacion(int ID_Notificacion, Tipo_Notificacion tipo_Notificacion, String mensaje, LocalDate fecha) {
+    public Notificacion(int ID_Notificacion, Tipo_Notificacion tipo_Notificacion, String mensaje, LocalDateTime fecha) {
         this.ID_Notificacion = ID_Notificacion;
         this.tipo_Notificacion = tipo_Notificacion;
         Mensaje = mensaje;
@@ -55,11 +56,11 @@ public class Notificacion {
         Mensaje = mensaje;
     }
 
-    public LocalDate getFecha() {
+    public LocalDateTime getFecha() {
         return Fecha;
     }
 
-    public void setFecha(LocalDate fecha) {
+    public void setFecha(LocalDateTime fecha) {
         Fecha = fecha;
     }
 }
