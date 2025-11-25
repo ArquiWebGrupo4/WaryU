@@ -74,13 +74,14 @@ public class IBoton_PanicoImplement implements IBoton_PanicoService {
                 "parameters": [
                   { "type": "text", "text": "%s" },
                   { "type": "text", "text": "%s" },
+                  { "type": "text", "text": "%s" },
                   { "type": "text", "text": "%s" }
                 ]
               }
             ]
           }
         }
-        """,u.getTelefono_Panico(), u.getNombreCompleto(), String.valueOf(latitud), String.valueOf(longitud));
+        """,u.getTelefono_Panico(), u.getNombreCompleto(), String.valueOf(latitud), String.valueOf(longitud), u.getMensaje());
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
