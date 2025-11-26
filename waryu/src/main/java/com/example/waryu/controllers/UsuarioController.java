@@ -26,6 +26,7 @@ public class UsuarioController {
     private IUsuarioService iUsuarioService;
 
     @GetMapping
+    @PreAuthorize("hasAnyAuthority('PADRE', 'ESTUDIANTE', 'ADMIN')")
     public ResponseEntity<?> listar() {
         List<UsuarioSecDTO> lista = uS.list().stream().map(x -> {
             ModelMapper m = new ModelMapper();
@@ -40,6 +41,7 @@ public class UsuarioController {
     }
 
     @PostMapping
+    @PreAuthorize("hasAnyAuthority('PADRE', 'ESTUDIANTE', 'ADMIN')")
     public ResponseEntity<String> registrar(@RequestBody UsuarioDTO dto) {
         ModelMapper m = new ModelMapper();
         Usuario d = m.map(dto, Usuario.class);
@@ -49,6 +51,7 @@ public class UsuarioController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAnyAuthority('PADRE', 'ESTUDIANTE', 'ADMIN')")
     public ResponseEntity<String> eliminar(@PathVariable("id") int id) {
         Usuario usuario = uS.findID(id);
         if (usuario == null) {
@@ -60,6 +63,7 @@ public class UsuarioController {
     }
 
     @PutMapping
+    @PreAuthorize("hasAnyAuthority('PADRE', 'ESTUDIANTE', 'ADMIN')")
     public ResponseEntity<String> actualizar(@RequestBody UsuarioDTO dto) {
         ModelMapper m = new ModelMapper();
         Usuario u = m.map(dto, Usuario.class);
@@ -73,6 +77,7 @@ public class UsuarioController {
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasAnyAuthority('PADRE', 'ESTUDIANTE', 'ADMIN')")
     public ResponseEntity<?> findID(@PathVariable("id") Integer id) {
         Usuario u = uS.findID(id);
         if (u == null) {
@@ -83,6 +88,7 @@ public class UsuarioController {
         return ResponseEntity.ok(dto);
     }
     @GetMapping("/{id}/todo")
+    @PreAuthorize("hasAnyAuthority('PADRE', 'ESTUDIANTE', 'ADMIN')")
     public ResponseEntity<?> findIDtodo(@PathVariable("id") Integer id) {
         Usuario u = uS.findID(id);
         if (u == null) {
@@ -93,6 +99,7 @@ public class UsuarioController {
         return ResponseEntity.ok(dto);
     }
     @GetMapping("/uso-boton-de-panico-por-usuario")
+    @PreAuthorize("hasAnyAuthority('PADRE', 'ESTUDIANTE', 'ADMIN')")
     public ResponseEntity<?> usoBotonDePanicoPorUsuario() {
         List<UsoBotonUsuariosDTO> listaDTO = new ArrayList<>();
         List<String[]> fila = uS.UsoBotonPanicoPorUsuario();

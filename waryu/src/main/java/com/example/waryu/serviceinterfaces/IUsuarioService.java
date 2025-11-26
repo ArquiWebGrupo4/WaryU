@@ -11,4 +11,5 @@ public interface IUsuarioService {
     public Usuario findID(int id);
     public void update(Usuario usuario);
     public List<String[]> UsoBotonPanicoPorUsuario();
+    public Usuario findOneByUsuario(String nombreusuario);
 }

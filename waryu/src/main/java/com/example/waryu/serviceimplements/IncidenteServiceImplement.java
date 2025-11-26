@@ -63,4 +63,8 @@ public class IncidenteServiceImplement implements IncidenteService {
         return iR.contarIncidentesPorDistrito();
     }
 
+    @Override
+    public List<Object[]> listalatlon() {
+        return iR.listalatlon();
+    }
 }

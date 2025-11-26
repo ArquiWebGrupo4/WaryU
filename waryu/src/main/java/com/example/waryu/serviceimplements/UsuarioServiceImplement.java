@@ -52,4 +52,9 @@ public class UsuarioServiceImplement implements IUsuarioService {
     public List<String[]> UsoBotonPanicoPorUsuario() {
         return uR.UsoBotonPanicoPorUsuario();
     }
+
+    @Override
+    public Usuario findOneByUsuario(String nombreusuario) {
+        return uR.findOneByNombreusuario(nombreusuario);
+    }
 }

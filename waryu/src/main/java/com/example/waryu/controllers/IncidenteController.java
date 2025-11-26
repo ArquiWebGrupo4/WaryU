@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -22,6 +23,7 @@ public class IncidenteController {
     private IncidenteService iS;
 
     @GetMapping
+    @PreAuthorize("hasAnyAuthority('PADRE', 'ESTUDIANTE', 'ADMIN')")
     public ResponseEntity<?> listar() {
         List<IncidenteSecDTO> lista = iS.list().stream().map(x -> {
             ModelMapper m = new ModelMapper();
@@ -36,6 +38,7 @@ public class IncidenteController {
     }
 
     @PostMapping
+    @PreAuthorize("hasAnyAuthority('PADRE', 'ESTUDIANTE', 'ADMIN')")
     public ResponseEntity<String> registrar(@RequestBody IncidenteDTO dto) {
         ModelMapper m = new ModelMapper();
         Incidente d = m.map(dto, Incidente.class);
@@ -45,6 +48,7 @@ public class IncidenteController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAnyAuthority('PADRE', 'ESTUDIANTE', 'ADMIN')")
     public ResponseEntity<String> eliminar(@PathVariable("id") Integer id) {
         Incidente incidente = iS.findID(id);
         if (incidente == null) {
@@ -56,6 +60,7 @@ public class IncidenteController {
     }
 
     @PutMapping
+    @PreAuthorize("hasAnyAuthority('PADRE', 'ESTUDIANTE', 'ADMIN')")
     public ResponseEntity<String> actualizar(@RequestBody IncidenteDTO dto) {
         ModelMapper m = new ModelMapper();
         Incidente i = m.map(dto, Incidente.class);
@@ -69,6 +74,7 @@ public class IncidenteController {
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasAnyAuthority('PADRE', 'ESTUDIANTE', 'ADMIN')")
     public ResponseEntity<?> findID(@PathVariable("id") Integer id) {
         Incidente i = iS.findID(id);
         if (i == null) {
@@ -79,6 +85,7 @@ public class IncidenteController {
         return ResponseEntity.ok(dto);
     }
     @GetMapping("/{id}/todo")
+    @PreAuthorize("hasAnyAuthority('PADRE', 'ESTUDIANTE', 'ADMIN')")
     public ResponseEntity<?> findIDTodo(@PathVariable("id") Integer id) {
         Incidente i = iS.findID(id);
         if (i == null) {
@@ -89,6 +96,7 @@ public class IncidenteController {
         return ResponseEntity.ok(dto);
     }
     @GetMapping("/incidentesfechas")
+    @PreAuthorize("hasAnyAuthority('PADRE', 'ESTUDIANTE', 'ADMIN')")
     public ResponseEntity<?> listarenfechas(@RequestParam("fecha1") LocalDateTime fecha1, @RequestParam("fecha2") LocalDateTime fecha2) {
         List<Incidente> i = iS.listarenfechas(fecha1, fecha2);
         if (i.isEmpty()) {
@@ -102,6 +110,7 @@ public class IncidenteController {
         return ResponseEntity.ok(lista);
     }
     @GetMapping("/incidentesdistrito")
+    @PreAuthorize("hasAnyAuthority('PADRE', 'ESTUDIANTE', 'ADMIN')")
     public ResponseEntity<?> listarendistritos(@RequestParam("distrito") String distrito) {
         List<Incidente> i = iS.listarendistrito(distrito);
         if (i.isEmpty()) {
@@ -114,6 +123,7 @@ public class IncidenteController {
         return ResponseEntity.ok(dto);
     }
     @GetMapping("/contador_IncidentesXTipo")
+    @PreAuthorize("hasAnyAuthority('PADRE', 'ESTUDIANTE', 'ADMIN')")
     public ResponseEntity<?> ContarXTipo() {
         List<Conteo_IncidenteXTipoDTO>listaDto=new ArrayList<Conteo_IncidenteXTipoDTO>();
         List<String[]>fila=iS.contarIncidentesPorTipo();
@@ -130,6 +140,7 @@ public class IncidenteController {
         return ResponseEntity.ok(listaDto);
     }
     @GetMapping("/contador_IncidentesXNivel")
+    @PreAuthorize("hasAnyAuthority('PADRE', 'ESTUDIANTE', 'ADMIN')")
     public ResponseEntity<?> ContarXNivel() {
         List<Conteo_IncidenteXNivelDTO>listaDto=new ArrayList<Conteo_IncidenteXNivelDTO>();
         List<String[]>fila=iS.contarIncidentesPorNivel();
@@ -144,5 +155,20 @@ public class IncidenteController {
             listaDto.add(dto);
         }
         return ResponseEntity.ok(listaDto);
+    }
+    @GetMapping("/listalatlon")
+    @PreAuthorize("hasAnyAuthority('PADRE', 'ESTUDIANTE', 'ADMIN')")
+    public ResponseEntity<?> listarlatlon() {
+        List<Object[]> lista = iS.listalatlon();
+        if (lista.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("No se encontraron registros");
+        }
+        List<List<Object>> listaCoords = new ArrayList<>();
+        for (Object[] x : lista) {
+            List<Object> par = Arrays.asList(x[0], x[1]);
+            listaCoords.add(par);
+        }
+        return ResponseEntity.ok(listaCoords);
     }
 }

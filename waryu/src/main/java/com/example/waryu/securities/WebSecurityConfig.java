@@ -65,13 +65,6 @@ public class WebSecurityConfig {
                                 "/swagger-ui/**",
                                 "/v3/api-docs/**",
                                 "/swagger-resources/**",
-                                "Distrito/**",
-                                "/botonpanico/**",
-                                "/Tipo_Incidente/**",
-                                "/roles/**",
-                                "/Nivel_Peligro/**",
-                                "/Tipo_Notificacion/**",
-                                "/**",
                                 "/webjars/**").permitAll()
                         .anyRequest().authenticated()
                 )

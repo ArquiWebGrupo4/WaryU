@@ -15,4 +15,5 @@ public interface IUsuarioRepository extends JpaRepository<Usuario, Integer> {
             "FROM usuario u JOIN boton_panico bp ON u.id_usuario = bp.id_usuario " +
             "GROUP BY u.nombreusuario ORDER BY total_activaciones DESC", nativeQuery = true)
     List<String[]> UsoBotonPanicoPorUsuario();
+
 }

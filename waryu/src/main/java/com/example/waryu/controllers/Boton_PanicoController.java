@@ -26,7 +26,7 @@ public class Boton_PanicoController {
     @Autowired
     private IUsuarioService uS;
     @GetMapping
-
+    @PreAuthorize("hasAnyAuthority('PADRE', 'ESTUDIANTE', 'ADMIN')")
     public ResponseEntity<?> listarBoton_Panico()
     {
         List<Boton_PanicoSecDTO> lista = btn_pan.list().stream().map(x->{
@@ -39,6 +39,7 @@ public class Boton_PanicoController {
         return ResponseEntity.ok(lista);
     }
     @PostMapping
+    @PreAuthorize("hasAnyAuthority('PADRE', 'ESTUDIANTE', 'ADMIN')")
     public ResponseEntity<String> registrar(@RequestBody Boton_PanicoDTO dto){
         ModelMapper mapper = new ModelMapper();
         Boton_Panico d = mapper.map(dto, Boton_Panico.class);
@@ -46,6 +47,7 @@ public class Boton_PanicoController {
         return ResponseEntity.status(HttpStatus.CREATED).body("Boton de panico accionado registrado");
     }
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAnyAuthority('PADRE', 'ESTUDIANTE', 'ADMIN')")
     public ResponseEntity<String> delete(@PathVariable("id") Integer id) {
         Boton_Panico d = btn_pan.listId(id);
         if (d == null) {
@@ -56,6 +58,7 @@ public class Boton_PanicoController {
     }
 
     @PutMapping
+    @PreAuthorize("hasAnyAuthority('PADRE', 'ESTUDIANTE', 'ADMIN')")
     public ResponseEntity<String> actualizar(@RequestBody Boton_PanicoDTO dto) {
         ModelMapper m = new ModelMapper();
         Boton_Panico b = m.map(dto, Boton_Panico.class);
@@ -68,6 +71,7 @@ public class Boton_PanicoController {
         return ResponseEntity.ok("Boton de panico modificado correctamente.");
     }
     @GetMapping("/{id}")
+    @PreAuthorize("hasAnyAuthority('PADRE', 'ESTUDIANTE', 'ADMIN')")
     public ResponseEntity<?> findID(@PathVariable("id") Integer id) {
         Boton_Panico d = btn_pan.listId(id);
         if (d == null) {
@@ -78,12 +82,15 @@ public class Boton_PanicoController {
         return ResponseEntity.ok(dto);
     }
     @PostMapping("/interact")
+    @PreAuthorize("hasAnyAuthority('PADRE', 'ESTUDIANTE', 'ADMIN')")
     public ResponseEntity<?> enviarAlerta(
-            @RequestParam String idUsuario) {
+            @RequestParam String nombreusuario) {
         try {
 
             double[] coords = {java.util.concurrent.ThreadLocalRandom.current().nextDouble(-90.0, 90.0), java.util.concurrent.ThreadLocalRandom.current().nextDouble(-180.0, 180.0)};
-            Usuario U = uS.findID(Integer.parseInt(idUsuario));
+            Usuario U = uS.findOneByUsuario(nombreusuario);
+            int id = U.getID_Usuario();
+            String idUsuario = String.valueOf(id);
             if(U == null){
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No existe registros, con ID: " + idUsuario);
             }
@@ -102,6 +109,7 @@ public class Boton_PanicoController {
         }
     }
     @PostMapping("/test")
+    @PreAuthorize("hasAnyAuthority('PADRE', 'ESTUDIANTE', 'ADMIN')")
     public ResponseEntity<?> testHelloWorld() {
         try {
             btn_pan.test();

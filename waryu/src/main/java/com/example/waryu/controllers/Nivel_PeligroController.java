@@ -20,6 +20,7 @@ public class Nivel_PeligroController {
     private INivel_PeligroService nPS;
 
     @GetMapping
+    @PreAuthorize("hasAnyAuthority('PADRE', 'ESTUDIANTE', 'ADMIN')")
     public ResponseEntity<?> listar() {
         List<Nivel_PeligroDTO> lista = nPS.list().stream().map(x -> {
             ModelMapper m = new ModelMapper();
@@ -33,6 +34,7 @@ public class Nivel_PeligroController {
         return ResponseEntity.ok(lista);
     }
     @PostMapping
+    @PreAuthorize("hasAnyAuthority('PADRE', 'ESTUDIANTE', 'ADMIN')")
     public ResponseEntity<String> registrar(@RequestBody Nivel_PeligroDTO dto) {
         ModelMapper m = new ModelMapper();
         Nivel_Peligro d = m.map(dto, Nivel_Peligro.class);
@@ -41,6 +43,7 @@ public class Nivel_PeligroController {
                 .body("Nivel de peligro registrado correctamente.");
     }
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAnyAuthority('PADRE', 'ESTUDIANTE', 'ADMIN')")
     public ResponseEntity<String> delete(@PathVariable("id") Integer id) {
         Nivel_Peligro np = nPS.listId(id);
         if (np == null) {
@@ -50,6 +53,7 @@ public class Nivel_PeligroController {
         return ResponseEntity.ok("Registro con ID " + id + " eliminado");
     }
     @PutMapping
+    @PreAuthorize("hasAnyAuthority('PADRE', 'ESTUDIANTE', 'ADMIN')")
     public ResponseEntity<String> actualizar(@RequestBody Nivel_PeligroDTO dto) {
         ModelMapper m = new ModelMapper();
         Nivel_Peligro d = m.map(dto, Nivel_Peligro.class);
@@ -63,6 +67,7 @@ public class Nivel_PeligroController {
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasAnyAuthority('PADRE', 'ESTUDIANTE', 'ADMIN')")
     public ResponseEntity<?> findID(@PathVariable("id") Integer id) {
         Nivel_Peligro np = nPS.listId(id);
         if (np == null) {

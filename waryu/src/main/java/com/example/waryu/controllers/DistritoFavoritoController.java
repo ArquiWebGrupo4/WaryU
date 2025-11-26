@@ -21,6 +21,7 @@ public class DistritoFavoritoController {
     @Autowired
     private IDistritoFavoritoService dfS;
     @GetMapping
+    @PreAuthorize("hasAnyAuthority('PADRE', 'ESTUDIANTE', 'ADMIN')")
     public ResponseEntity<?> listar() {
         List<DistritoFavoritoSecDTO> lista = dfS.list().stream().map(x -> {
             ModelMapper m = new ModelMapper();
@@ -34,6 +35,7 @@ public class DistritoFavoritoController {
         return ResponseEntity.ok(lista);
     }
     @PostMapping
+    @PreAuthorize("hasAnyAuthority('PADRE', 'ESTUDIANTE', 'ADMIN')")
     public ResponseEntity<String> registrar(@RequestBody DistritoFavoritoDTO dto) {
         ModelMapper m = new ModelMapper();
         DistritoFavorito d = m.map(dto, DistritoFavorito.class);
@@ -42,6 +44,7 @@ public class DistritoFavoritoController {
                 .body("Distrito Favorito registrado correctamente.");
     }
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAnyAuthority('PADRE', 'ESTUDIANTE', 'ADMIN')")
     public ResponseEntity<String> delete(@PathVariable("id") Integer id) {
         DistritoFavorito df = dfS.listId(id);
         if (df == null) {
@@ -51,6 +54,7 @@ public class DistritoFavoritoController {
         return ResponseEntity.ok("Distrito Favorito con ID " + id + " eliminado");
     }
     @PutMapping
+    @PreAuthorize("hasAnyAuthority('PADRE', 'ESTUDIANTE', 'ADMIN')")
     public ResponseEntity<String> actualizar(@RequestBody DistritoFavoritoDTO dto) {
         ModelMapper m = new ModelMapper();
         DistritoFavorito d = m.map(dto, DistritoFavorito.class);
@@ -64,6 +68,7 @@ public class DistritoFavoritoController {
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasAnyAuthority('PADRE', 'ESTUDIANTE', 'ADMIN')")
     public ResponseEntity<?> findID(@PathVariable("id") Integer id) {
         DistritoFavorito d = dfS.listId(id);
         if (d == null) {
@@ -74,6 +79,7 @@ public class DistritoFavoritoController {
         return ResponseEntity.ok(dto);
     }
     @GetMapping("/DistritoFavoritosUsuarios")
+    @PreAuthorize("hasAnyAuthority('PADRE', 'ESTUDIANTE', 'ADMIN')")
     public ResponseEntity<?> listDistritoFavoritoUsuarios(@RequestParam("id") Integer id) {
         List<DistritoDTO> dto = dfS.findDistritoFavoritoByUsuario(id).stream().map(x-> {
             ModelMapper m = new ModelMapper();

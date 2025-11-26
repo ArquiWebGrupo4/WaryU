@@ -16,5 +16,6 @@ public interface IncidenteService {
     public List<String[]> contarIncidentesPorTipo();
     public List<String[]> contarIncidentesPorNivel();
     public List<String[]> contarIncidentePorDistrito();
+    public List<Object[]> listalatlon();
 }
 

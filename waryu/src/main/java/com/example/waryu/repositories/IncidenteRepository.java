@@ -34,4 +34,7 @@ public interface IncidenteRepository extends JpaRepository<Incidente,Integer> {
             "Inner join incidente i on np.id_distrito = i.id_distrito " +
             "Group by np.distrito", nativeQuery = true)
     public List<String[]> contarIncidentesPorDistrito();
+
+    @Query("SELECT i.Lat, i.Lon FROM Incidente i")
+    List<Object[]> listalatlon();
 }

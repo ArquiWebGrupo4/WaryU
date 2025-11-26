@@ -20,6 +20,7 @@ public class NotificacionController {
     private INotificacionService nS;
 
     @GetMapping
+    @PreAuthorize("hasAnyAuthority('PADRE', 'ESTUDIANTE', 'ADMIN')")
     public ResponseEntity<?> list() {
         List<NotificacionDTO> lista = nS.List().stream().map(x -> {
             ModelMapper m = new ModelMapper();
@@ -34,6 +35,7 @@ public class NotificacionController {
     }
 
     @PostMapping
+    @PreAuthorize("hasAnyAuthority('PADRE', 'ESTUDIANTE', 'ADMIN')")
     public ResponseEntity<String> insert(@RequestBody NotificacionDTO dto) {
         ModelMapper m = new ModelMapper();
         Notificacion n = m.map(dto, Notificacion.class);
@@ -43,6 +45,7 @@ public class NotificacionController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAnyAuthority('PADRE', 'ESTUDIANTE', 'ADMIN')")
     public ResponseEntity<String> delete(@PathVariable("id") Integer id) {
         Notificacion notificacion = nS.ListarId(id);
         if (notificacion == null) {
@@ -54,6 +57,7 @@ public class NotificacionController {
     }
 
     @PutMapping
+    @PreAuthorize("hasAnyAuthority('PADRE', 'ESTUDIANTE', 'ADMIN')")
     public ResponseEntity<String> actualizar(@RequestBody NotificacionDTO dto) {
         ModelMapper m = new ModelMapper();
         Notificacion n = m.map(dto, Notificacion.class);
@@ -67,6 +71,7 @@ public class NotificacionController {
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasAnyAuthority('PADRE', 'ESTUDIANTE', 'ADMIN')")
     public ResponseEntity<?> findID(@PathVariable("id") Integer id) {
         Notificacion n = nS.ListarId(id);
         if (n == null) {
