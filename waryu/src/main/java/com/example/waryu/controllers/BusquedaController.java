@@ -23,8 +23,10 @@ public class BusquedaController {
     @PreAuthorize("hasAnyAuthority('PADRE', 'ESTUDIANTE', 'ADMIN')")
     public ResponseEntity<?> listar() {
         List<BusquedaSecDTO> lista = bS.list().stream().map(x -> {
-            ModelMapper m = new ModelMapper();
-            return m.map(x, BusquedaSecDTO.class);
+            ModelMapper mapper = new ModelMapper();
+            BusquedaSecDTO dto = mapper.map(x, BusquedaSecDTO.class);
+            dto.getUsuario().setNombreUsuario(x.getUsuario().getNombreusuario());
+            return dto;
         }).collect(Collectors.toList());
         if (lista.isEmpty()) {
             return ResponseEntity.status(HttpStatus.OK)

@@ -31,7 +31,9 @@ public class Boton_PanicoController {
     {
         List<Boton_PanicoSecDTO> lista = btn_pan.list().stream().map(x->{
             ModelMapper mapper = new ModelMapper();
-            return mapper.map(x, Boton_PanicoSecDTO.class);
+            Boton_PanicoSecDTO dto = mapper.map(x, Boton_PanicoSecDTO.class);
+            dto.getUsuario().setNombreUsuario(x.getUsuario().getNombreusuario());
+            return dto;
         }).collect(Collectors.toList());
         if(lista.isEmpty()){
             return ResponseEntity.status(HttpStatus.OK).body("No existen registros de boton de panico accionados");

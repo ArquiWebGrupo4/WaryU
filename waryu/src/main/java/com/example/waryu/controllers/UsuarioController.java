@@ -29,8 +29,13 @@ public class UsuarioController {
     @PreAuthorize("hasAnyAuthority('PADRE', 'ESTUDIANTE', 'ADMIN')")
     public ResponseEntity<?> listar() {
         List<UsuarioSecDTO> lista = uS.list().stream().map(x -> {
-            ModelMapper m = new ModelMapper();
-            return m.map(x, UsuarioSecDTO.class);
+            UsuarioSecDTO dto = new UsuarioSecDTO();
+            dto.setID_Usuario(x.getID_Usuario());
+            dto.setRol(x.getRol());
+            dto.setNombreUsuario(x.getNombreusuario());
+            dto.setNombreCompleto(x.getNombreCompleto());
+            dto.setFecha_Registro(x.getFecha_Registro());
+            return dto;
         }).collect(Collectors.toList());
 
         if (lista.isEmpty()) {
@@ -41,7 +46,7 @@ public class UsuarioController {
     }
 
     @PostMapping
-    @PreAuthorize("hasAnyAuthority('PADRE', 'ESTUDIANTE', 'ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<String> registrar(@RequestBody UsuarioDTO dto) {
         ModelMapper m = new ModelMapper();
         Usuario d = m.map(dto, Usuario.class);
@@ -51,7 +56,7 @@ public class UsuarioController {
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasAnyAuthority('PADRE', 'ESTUDIANTE', 'ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<String> eliminar(@PathVariable("id") int id) {
         Usuario usuario = uS.findID(id);
         if (usuario == null) {
@@ -63,7 +68,7 @@ public class UsuarioController {
     }
 
     @PutMapping
-    @PreAuthorize("hasAnyAuthority('PADRE', 'ESTUDIANTE', 'ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<String> actualizar(@RequestBody UsuarioDTO dto) {
         ModelMapper m = new ModelMapper();
         Usuario u = m.map(dto, Usuario.class);
@@ -77,29 +82,31 @@ public class UsuarioController {
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasAnyAuthority('PADRE', 'ESTUDIANTE', 'ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<?> findID(@PathVariable("id") Integer id) {
         Usuario u = uS.findID(id);
         if (u == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No existe registros, con el ID: " + id);
         }
-        ModelMapper m = new ModelMapper();
-        UsuarioSecDTO dto = m.map(u, UsuarioSecDTO.class);
+        UsuarioSecDTO dto = new UsuarioSecDTO();
+        dto.setID_Usuario(u.getID_Usuario());
+        dto.setRol(u.getRol());
+        dto.setNombreUsuario(u.getNombreusuario());
+        dto.setNombreCompleto(u.getNombreCompleto());
+        dto.setFecha_Registro(u.getFecha_Registro());
         return ResponseEntity.ok(dto);
     }
     @GetMapping("/{id}/todo")
-    @PreAuthorize("hasAnyAuthority('PADRE', 'ESTUDIANTE', 'ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<?> findIDtodo(@PathVariable("id") Integer id) {
         Usuario u = uS.findID(id);
         if (u == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No existe registros, con el ID: " + id);
         }
-        ModelMapper m = new ModelMapper();
-        UsuarioDTO dto = m.map(u, UsuarioDTO.class);
-        return ResponseEntity.ok(dto);
+        return ResponseEntity.ok(u);
     }
     @GetMapping("/uso-boton-de-panico-por-usuario")
-    @PreAuthorize("hasAnyAuthority('PADRE', 'ESTUDIANTE', 'ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<?> usoBotonDePanicoPorUsuario() {
         List<UsoBotonUsuariosDTO> listaDTO = new ArrayList<>();
         List<String[]> fila = uS.UsoBotonPanicoPorUsuario();
@@ -115,4 +122,5 @@ public class UsuarioController {
         }
         return ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON).body(listaDTO);
     }
+
 }

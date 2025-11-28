@@ -1,9 +1,6 @@
 package com.example.waryu.controllers;
 
-import com.example.waryu.dtos.Reporte_IncidenteDTO;
-import com.example.waryu.dtos.Reporte_IncidenteSecDTO;
-import com.example.waryu.dtos.Reporte_IncidentexDistritoDTO;
-import com.example.waryu.dtos.Reporte_ReportesxIncidenteDTO;
+import com.example.waryu.dtos.*;
 import com.example.waryu.entities.*;
 import com.example.waryu.serviceinterfaces.IReporte_IncidenteService;
 import com.example.waryu.serviceinterfaces.IUsuarioService;
@@ -32,8 +29,10 @@ public class Reporte_IncidenteController {
     @PreAuthorize("hasAnyAuthority('PADRE', 'ESTUDIANTE', 'ADMIN')")
     public ResponseEntity<?> listar() {
         List<Reporte_IncidenteSecDTO> lista = rIS.list().stream().map(x -> {
-            ModelMapper m = new ModelMapper();
-            return m.map(x, Reporte_IncidenteSecDTO.class);
+            ModelMapper mapper = new ModelMapper();
+            Reporte_IncidenteSecDTO dto = mapper.map(x, Reporte_IncidenteSecDTO.class);
+            dto.getUsuario().setNombreUsuario(x.getUsuario().getNombreusuario());
+            return dto;
         }).collect(Collectors.toList());
 
         if (lista.isEmpty()) {

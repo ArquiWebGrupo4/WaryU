@@ -1,5 +1,6 @@
 package com.example.waryu.controllers;
 
+import com.example.waryu.dtos.Boton_PanicoSecDTO;
 import com.example.waryu.dtos.DistritoDTO;
 import com.example.waryu.dtos.DistritoFavoritoDTO;
 import com.example.waryu.dtos.DistritoFavoritoSecDTO;
@@ -24,8 +25,10 @@ public class DistritoFavoritoController {
     @PreAuthorize("hasAnyAuthority('PADRE', 'ESTUDIANTE', 'ADMIN')")
     public ResponseEntity<?> listar() {
         List<DistritoFavoritoSecDTO> lista = dfS.list().stream().map(x -> {
-            ModelMapper m = new ModelMapper();
-            return m.map(x, DistritoFavoritoSecDTO.class);
+            ModelMapper mapper = new ModelMapper();
+            DistritoFavoritoSecDTO dto = mapper.map(x, DistritoFavoritoSecDTO.class);
+            dto.getUsuario().setNombreUsuario(x.getUsuario().getNombreusuario());
+            return dto;
         }).collect(Collectors.toList());
 
         if (lista.isEmpty()) {
