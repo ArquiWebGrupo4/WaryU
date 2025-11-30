@@ -47,10 +47,19 @@ public class UsuarioController {
 
     @PostMapping
     @PreAuthorize("hasAuthority('ADMIN')")
-    public ResponseEntity<String> registrar(@RequestBody UsuarioDTO dto) {
-        ModelMapper m = new ModelMapper();
-        Usuario d = m.map(dto, Usuario.class);
-        uS.insert(d);
+    public ResponseEntity<String> registrar(@RequestBody UsuarioDTO u) {
+        Usuario dto = new Usuario();
+        dto.setID_Usuario(u.getID_Usuario());
+        dto.setRol(u.getRol());
+        dto.setNombreusuario(u.getNombreUsuario());
+        dto.setNombreCompleto(u.getNombreCompleto());
+        dto.setEmail(u.getEmail());
+        dto.setContrasenahash(u.getContrasenahash());
+        dto.setFecha_Registro(u.getFecha_Registro());
+        dto.setTelefono(u.getTelefono());
+        dto.setTelefono_Panico(u.getTelefono_Panico());
+        dto.setMensaje(u.getMensaje());
+        uS.insert(dto);
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body("Dispositivo registrado correctamente.");
     }
